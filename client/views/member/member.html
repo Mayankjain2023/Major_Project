@@ -1,0 +1,191 @@
+<body ng-controller="dashboardController.js">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
+        <a class="navbar-brand" href="" >
+          BugTracker</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+      <div class="collapse navbar-collapse" >
+        <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#!dashboard"> Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="">Projects</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href=""></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href=""></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href=""></a>
+                </li>
+        </ul> 
+      </div>
+      <div class="collapse navbar-collapse" >
+              <form class="form-inline">
+                <input class="form-control mr-lg-2" type="search" placeholder="Search your bugs" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+              </form>
+      </div>
+    
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+             <button type="submit" class="btn btn-success" ng-if="role==true" ng-model="role" ng-click="createOrgForm()" > Create </button>
+        </li>
+        <li class="nav-item">
+              <button type="submit" class="btn btn-success " ng-if="isAdmin" ng-click="addUserForm()" ng-model="isAdmin" > Add Members</button>
+        </li>
+       
+      </ul>
+    
+    
+    </div>
+    
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav justify-content-end">
+        <li class="nav-item dropdown">
+            <div class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{name}}
+            </div>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="">{{useremail}}</a>
+                <a class="dropdown-item" href="" ng-click="openModal()">Profile</a>
+              <a class="dropdown-item" href="">Settings</a>
+              <a class="dropdown-item" ng-click="logout()">Logout</a>
+            </div>
+        </li>
+      </ul>
+    </div>
+    </nav>
+
+
+    <div class="container">
+      <uib-tabset active="activePill" type="pills" justified="true">
+        
+          
+     
+          <uib-tab index="0" heading="Issues"  >
+
+
+            <div class="container" ng-controller=""> <!-- div controller -->
+
+              <div class="panel">
+                 
+                  <div class="panel-body">
+                      <div class="row">
+          
+                          <div class="col-sm-6 col-md-6">
+                              <form method="post" ng-submit="">
+          
+                                  <div class="row">
+                                      <label>Summary</label>
+                                      <input  type="text" class="form-control" ng-model="issue.issueData.summary"> 
+                                  </div>
+                                  <div class="row">
+                                      <label> Descripition </label>
+                                      <br><textarea name="description" class="form-control" ng-model="issue.issueData.description"> 
+                                      </textarea>
+                                  </div>
+                                  <div class="row">
+                                      <label>Assignee</label><br>
+                                      <select class="form-control selectpicker" ng-model="issue.issueData.assignee">
+
+                                          <option value="" disabled selected>Add assignees</option>
+                                          <option ng-repeat="u in users" value="{{u._id}}">{{u.first_name}}
+                                          </option>
+                                      </select>
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                      <label>Priority</label><br>
+                                      <select class="form-control selectpicker" ng-model="issue.issueData.priority">
+                                          <option value="BLOCKER">Blocker</option>
+                                          <option value="HIGH">High</option>
+                                          <option value="MEDIUM">Medium</option>
+                                          <option value="LOW">Low</option>
+                                      </select>                 
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                      <label>Type</label><br>
+                                      <select class="form-control selectpicker" ng-model="issue.issueData.type">
+                                          <option value="TASK">Task</option>
+                                          <option value="BUG">Bug</option>
+                                          <option value="ENHANCEMENT">Enhancement</option>
+                                      </select>
+          
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                      <label>Status</label>
+                                      <select class="form-control selectpicker" ng-model="issue.issueData.status">
+                                          <option value="NOT-STARTED">Not Started</option>
+                                          <option value="WORKING">Working</option>
+                                          <option value="TESTING">Testing</option>
+                                          <option value="CLOSED">Closed</option>
+                                          <option value="REOPENED">Reopened</option>
+                                      </select>
+          
+                                  </div>
+                                  <br>
+                                  
+                                  <div class="row">
+                                      <label>Start Date</label> 
+                                      <input type="date" class="form-control" ng-model="issue.issueData.start_date"> 
+                                  </div>
+
+                                  <br>
+                                  <div class="row">
+                                      <label>End Date</label> 
+                                      <input type="date" class="form-control" ng-model="issue.issueData.end_date"> 
+                                  </div>
+                                  <br>
+                                  <div class="row">         
+                                      <input type="submit" class="btn btn-warning" id="login-submit" tabindex="2" class="btn btn-primary" value="Add Task"></a>               
+                                  </div>
+
+                              </form>
+                          </div>
+                      </div>
+                  </div><!-- div panel-body -->
+              </div><!-- div panel -->
+          </div><!-- div controller -->
+
+
+
+          </uib-tab>
+          
+          <uib-tab heading="Comments">
+
+          </uib-tab>
+  
+  
+  
+  
+  
+  
+  
+  
+    </div>      
+</body>
+
+
+<!-- m
+<ng-form name="bugForm">
+              <div class="form-group" style="margin-top: 30px;">
+                <label>Bug</label>
+                <input type="text" class="form-control" placeholder="Bug" required ng-model="model.name"/>
+                <label>Project Name</label>
+                <input type="text" class="form-control" placeholder="Project Name" required ng-model="model.projectname"/>
+                <label>Description</label>
+                <input type="text" size="30px" class="form-control" placeholder="Describe the issue"
+                 required ng-model="model.description" style="height:100px"/>
+              </div>
+              <button class="btn btn-warning">Submit</button>
+            </ng-form> -->

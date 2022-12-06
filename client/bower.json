@@ -1,0 +1,23 @@
+{
+  "name": "frontend",
+  "authors": [
+    "Mayankjain2023 <mayank1903jain@gmail.com>"
+  ],
+  "description": "bug tracker software",
+  "main": "app.js",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],"dependencies": {
+    "angular-sanitize": "^1.8.3",
+    "angular-touch": "^1.8.3",
+    "ui-bootstrap4": "^3.0.7",
+    "angular-bootstrap": "^2.5.0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "bugfinder",
+  "version": "1.0.0",
+  "description": "Bug tracker for software development teams",
+  "main": "index.js",
+  "scripts": {
+    "start":"nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mayank Jain",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.2.4",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "bower": "^1.8.14",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.7.3",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

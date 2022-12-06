@@ -1,0 +1,253 @@
+<!-- <script src="..../bower_Components/ui-bootstrap4/dist/ui-bootstrap-tpls.js"></script>
+<script src="..../bower_Components/ui-bootstrap4/dist/ui-bootstrap-csp.css"></script>
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-touch/1.8.3/angular-touch.min.js" integrity="sha512-f7nfAhahVgkfGWX/Ya3gmMaz9b2nSRI9Q3eftG+NH4W8NEOgWen8Rkv/p5ZL9WTTewoscB+dtO0YXNoJOxIv+A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+
+<style>
+     body {
+    font-family: "Lato", sans-serif;
+}
+
+
+
+.main-head{
+    height: 150px;
+    background: #FFF;
+   
+}
+
+.sidenav {
+    height: 100%;
+    background-color:  rgb(14, 86, 188);
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+
+.main {
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+}
+
+@media screen and (max-width: 450px) {
+    .registration-form{
+        margin-top: 10%;
+    }
+
+    .register-form{
+        margin-top: 10%;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .main{
+        margin-left:50%; 
+    }
+
+    .sidenav{
+        width: 50%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+    }
+
+    .registration-form{
+        margin-top: 30%;
+    }
+
+    .registration-form{
+        margin-top: 20%;
+    }
+}
+
+
+.register-main-text{
+    margin-top: 20%;
+    padding: 20px;
+    color: #fff;
+}
+
+.register-main-text h2{
+    font-weight: 300;
+}
+
+.btn-black{
+    background-color: #000 !important;
+    color: #fff;
+}
+</style>
+
+
+<body ng-controller="registerCtrl">
+
+    <div class="sidenav">
+        <div class="register-main-text">
+            <h1>BugTracker</h1>
+            <br>
+            <h3>...to complete your project on schedule</h3>
+           <h3>Create your account from here</h3>
+        </div>
+     </div>
+    
+     <div class="main">
+        <div class="col-md-6 col-sm-12">
+           <div class="registration-form">
+
+              <form name="registerForm" role="form" autocomplete="off" novalidate>
+
+                <div class="form-group">
+                    <label>Name </label>
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter Full Name" ng-model="name" required>
+                    <br>
+                    <p style="color:red" ng-show="registerForm.name.$invalid && registerForm.name.$touched">Name is required</p>
+                    
+                    
+                    <label >Username</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" ng-model="email" required>
+                    <br>
+                    <p style="color:red" ng-show="registerForm.email.$invalid && registerForm.email.$touched">Enter a valid email address</p>
+                    
+                    <label>Password </label>
+                    <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Enter Password" ng-model="password" required>
+                    <br>
+                    <span style="color:red" ng-show="registerForm.pwd.$invalid && registerForm.pwd.$touched">
+                         <ul> 
+                            <li>Password length should be more than 8 </li>
+                            <li>Must contain an uppercase letter</li>
+                            <li>A lowercase letter</li>
+                            <li>A special Character</li>
+                        </ul>
+                    </span>
+                    
+                    <label> Confirm Password</label>
+                    <input type="password" class="form-control" name="cnfpwd" id="cnfpwd" placeholder="Confirm Password" ng-model="cnfpassword" required>
+                    <br>
+                    <span style="color:red" ng-show="registerForm.cnfpwd.$touched && cnfpassword!=password">Confirm password should match the password</span>
+                </div>
+    
+
+
+                
+                 <button type="submit" class="btn btn-black" type="submit" ng-click="signUp()"
+                 ng-disabled="registerForm.name.$invalid || registerForm.email.$invalid || registerForm.pwd.$invalid || registerForm.cnfpwd.$invalid ||cnfpassword!=password" >Register</button>
+                        <div class="alert alert-danger" role="alert" ng-show="invalidAlert" >Invalid Credentials!</div>
+                
+                 <h4>Existing User? <a ui-sref="login">Login</a></h4>
+              </form>
+           </div>
+        </div>
+     </div>
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" style=" margin-top:50px;background-color:rgb(157, 238, 188) ;">
+
+        </div>
+
+    <div class="col-md-6" style=" margin-top:50px;;">
+
+    <div id="loginbox" style="margin:auto;" class="mainbox col col-md-offset-3">
+        <div class="panel">
+            <div class="panel-body"> 
+                <h1 class="text-primary" style="text-align:center ; font-family: 'Times New Roman', Times, serif;">SignUp</h1>
+                        
+                <form name="registerForm" role="form" autocomplete="off" novalidate>
+        
+                    <div class="form-group">
+                        <label>Name </label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter Full Name" ng-model="name" required>
+                        <br>
+                        <span style="color:red" ng-show="registerForm.name.$invalid && registerForm.name.$touched">Name is required</span>
+                    </div> 
+        
+                    <div class="form-group" >
+                        <label >Username</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" ng-model="email" required>
+                    <br>
+                    <span style="color:red" ng-show="registerForm.email.$invalid && registerForm.email.$touched">Enter a valid email address</span>
+        
+                    </div>
+                   
+                   
+                    <div class="form-group" >
+                        <label>Password </label>
+                        <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Enter Password" ng-model="password" required>
+                        <br>
+                        <span style="color:red" ng-show="registerForm.pwd.$invalid && registerForm.pwd.$touched">
+                             <ul> 
+                                <li>Password length should be more than 8 </li>
+                                <li>Must contain an uppercase letter</li>
+                                <li>A lowercase letter</li>
+                                <li>A special Character</li>
+                            </ul>
+                        </span>
+                    </div>
+        
+                    <div class="form-group" >
+                        <label> Confirm Password</label>
+                        <input type="password" class="form-control" name="cnfpwd" id="cnfpwd" placeholder="Confirm Password" ng-model="cnfpassword" required>
+                    <br>
+                    <span style="color:red" ng-show="registerForm.cnfpwd.$touched && cnfpassword!=password">Confirm password should match the password</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit" ng-click="signUp()"
+                         ng-disabled="registerForm.name.$invalid || registerForm.email.$invalid || registerForm.pwd.$invalid || registerForm.cnfpwd.$invalid ||cnfpassword!=password" >Sign Up</button>
+                    </div>
+                     <button class="btn btn-success" type="submit" ng-click="signUp()" ng-disabled="registerForm.name.$invalid || registerForm.email.$invalid || registerForm.pwd.$invalid || registerForm.cnfpwd.$invalid ||cnfpassword!=password" >Sign Up</button> 
+                    <div uib-alert style="margin-top:10px; width:500px; height:50px" ng-show="passAlert" ng-class="'alert-danger'" close="closeAlert()">Enter a valid Password!</div>
+                   
+                    
+                    <button type="submit" class="btn btn-primary" ng-click="gotoLogin()">Already Registered?</button>
+                    
+                </form>
+                <h4>Already registered? <a ui-sref="login">Login</a></h4>
+            </div>
+        </div>
+
+    </div>
+
+    
+
+</div>
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+ </body>  -->
