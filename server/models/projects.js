@@ -17,10 +17,9 @@ var projectSchema=new Schema({
           }
         //pm of that project
     },
-    issues:[{
+    bugs:[{
             
             title:String,
-            type:String,
             status:String,
             priority:String,
             listPosition:Number,

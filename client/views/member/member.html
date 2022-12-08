@@ -65,38 +65,38 @@
     </nav>
 
 
-    <div class="container">
+    <div class="container-fluid">
       <uib-tabset active="activePill" type="pills" justified="true">
         <uib-tab index="0" heading="Project">
 
         </uib-tab>
           
      
-          <uib-tab index="1" heading="Issues"  >
-              <div class="container" ng-controller=""> <!-- div controller -->
+          <uib-tab index="1" heading="Bugs">
+              <div class="container-fluid" ng-controller=""> 
                 <div class="panel">
                   <div class="panel-body">
                     <div class="row">
-                      <div class="col-sm-6 col-md-6">
+                      <div class="col-sm-6 col-md-6 col-md-offset-3">
                         <form method="post" ng-submit="">
                             <div class="row">
-                                      <label>Summary</label>
-                                      <input  type="text" class="form-control" ng-model="issue.issueData.summary"> 
+                                      <label>Project Name</label>
+                                      <input  type="text" class="form-control" ng-model=""> 
                                   </div>
                                   <div class="row">
                                       <label> Descripition </label>
-                                      <br><textarea name="description" class="form-control" ng-model="issue.issueData.description"> 
+                                      <br><textarea name="description" class="form-control" ng-model=""> 
                                       </textarea>
                                   </div>
-                                  <div class="row">
+                                  <!-- <div class="row">
                                       <label>Assignee</label><br>
-                                      <select class="form-control selectpicker" ng-model="issue.issueData.assignee">
+                                      <select class="form-control selectpicker" ng-model="">
 
                                           <option value="" disabled selected>Add assignees</option>
                                           <option ng-repeat="u in users" value="{{u._id}}">{{u.first_name}}
                                           </option>
                                       </select>
-                                  </div>
+                                  </div> -->
                                   <br>
                                   <div class="row">
                                       <label>Priority</label><br>
@@ -107,8 +107,8 @@
                                           <option value="LOW">Low</option>
                                       </select>                 
                                   </div>
-                                  <br>
-                                  <div class="row">
+                                  <!-- <br> -->
+                                  <!-- <div class="row">
                                       <label>Type</label><br>
                                       <select class="form-control selectpicker" ng-model="issue.issueData.type">
                                           <option value="TASK">Task</option>
@@ -116,7 +116,7 @@
                                           <option value="ENHANCEMENT">Enhancement</option>
                                       </select>
           
-                                  </div>
+                                  </div> -->
                                   <br>
                                   <div class="row">
                                       <label>Status</label>
@@ -143,32 +143,18 @@
                                   </div>
                                   <br>
                                   <div class="row">         
-                                      <input type="submit" class="btn btn-warning" id="login-submit" tabindex="2" class="btn btn-primary" value="Add Task"></a>               
+                                      <input type="submit" class="btn btn-warning" id="login-submit" tabindex="2" class="btn btn-primary" value="Report"></a>               
                                   </div>
 
                               </form>
                           </div>
                       </div>
                   </div>
-              </div>
-
+                </div>
           </div>
-
-
-
-          </uib-tab>
+        </uib-tab>
           
-          <uib-tab index="2" heading="Comments">
-
-          </uib-tab>
-  
-  
-  
-  
-  
-  
-  
-  
+          <uib-tab index="2" heading="Comments"></uib-tab>
     </div>      
 </body>
 

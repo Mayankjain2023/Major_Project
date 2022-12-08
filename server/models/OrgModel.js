@@ -25,6 +25,18 @@ var Org = mongoose.model('OrgModel', OrgSchema);
 
 module.exports = Org;
 
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports.addOrg=function(newOrg,callback){
     newOrg.save(callback);
 }

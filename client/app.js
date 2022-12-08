@@ -33,10 +33,10 @@ app.config(function($stateProvider,$urlRouterProvider){
                     templateUrl:"views/home/home.html",
                     url:"/home"
                 })
-                // .state("admin",{
-                //     controller:"adminCtrl",
-                //     templateUrl:"views/admin/admin.html",
-                //     url:"/admin",
+                // .state("profile",{
+                //     controller:"modalCtrl",
+                //     templateUrl:"views/dashboard/modal.html",
+                //     url:"/dashboard/profile",
                 //     resolve:{
                 //         user:function(isAuthenticated){
                 //             return isAuthenticated.getUser();
@@ -53,26 +53,6 @@ app.config(function($stateProvider,$urlRouterProvider){
                 //         }
                 //     }
                 // })
-                // .state("createOrg",{
-                //     controller:"superAdminCtrl",
-                //     templateUrl:"views/superAdmin/superAdmin.html",
-                //     url:"/createOrg",
-                //     // resolve:{
-                //     //     user:function(isAuthenticated){
-                //     //         return isAuthenticated.getUser();
-                //     //     }
-                //     // }
-                // })
-                // .state("createUser",{
-                //     controller:"dashboardCtrl",
-                //     templateUrl:"views/dashboard/dashboard.html",
-                //     url:"/createUser",
-                    // resolve:{
-                    //     user:function(isAuthenticated){
-                    //         return isAuthenticated.getUser();
-                    //     }
-                    // }
                 
-                // })
             
 });

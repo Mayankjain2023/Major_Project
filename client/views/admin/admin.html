@@ -1,3 +1,27 @@
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #d2e5fa;
+  }
+
+
+  /* collapse */
+  .horizontal-collapse {
+    height: 70px;
+  }
+  </style>
+
 <body>
     
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
@@ -71,43 +95,44 @@
   <div class="container-fluid">
 
     <uib-tabset active="activePill" type="pills" justified="true">
-      <uib-tab index="0" heading="PROJECTS" >
-        
-       
-  
-        <div class="panel panel-primary	" style="margin-top: 30px;">
-          <div class="panel-heading">Projects</div>
-          <div class="panel-body">
-            
-        <ul>
-           
-            <!-- <li ><a href="" ></a></li> -->
-            LIST OF PROJECTS
-           
-        </ul>
-        
-          </div>
-        </div>
-  
-      </uib-tab>
-      <uib-tab index="1" ng-init="getUser()" heading="MEMBERS"> 
-  
-  
+      
+      <uib-tab index="0" ng-init="getOrgMembers()" heading="MEMBERS">
         <div class="panel panel-primary	" style="margin-top: 30px;">
           <div class="panel-heading">Members</div>
           <div class="panel-body">
-            <div></div>
-            <div>
-              <div class="card" style="width:400px" >
-                <div class="card-body">
-                  <h4 class="card-title"></h4>
-                 
-                  <a href="#" class="btn btn-primary">See Profile</a>
-                </div>
-              </div>
-            </div>
+            
+            <table>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+              <tr ng-repeat="users in orgUsers">
+                <td>{{users.username}}</td>
+                <td>{{users.email}}</td>
+                <!-- <td>{{users.team}}</td> -->
+
+                <td>
+                  <button class="btn btn-primary">view Profile</button>
+                  <button class="btn btn-success">Remove</button>
+                  <button class="btn btn-warning">Modify Permissions</button>
+
+                </td>
+              </tr>
+
+              
+            </table>
           </div>
         </div> 
+  
+      </uib-tab>
+      <uib-tab index="1" heading="PROJECTS" >
+        <div class="panel panel-primary	" style="margin-top: 30px;">
+          <div class="panel-heading">Projects</div>
+            <div class="panel-body">
+             
+          </div>
+        </div>
   
       </uib-tab>
       <uib-tab index="2" heading="ADD PROJECT">
@@ -132,9 +157,9 @@
                               </div>
                               <br>
                               <div class="row">
-                                  <label>Assignee</label><br>
-                                  <select class="form-control selectpicker" >
-                                      <option ng-repeat="" value="">
+                                  <label>Assignees</label><br>
+                                  <select class="form-control selectpicker" multiple>
+                                      <option ng-repeat="u in orgUsers" value="u._id">{{u.username}}
                                       </option>
                                   </select>
                                   
@@ -152,7 +177,7 @@
                              
       
                               <div class="row">
-                                  <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="btn btn-success" value="Save Project">
+                                  <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="btn btn-success" value="Create Project">
                               </div>
                           </form>
                       </div>

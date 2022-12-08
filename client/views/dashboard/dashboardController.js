@@ -1,11 +1,17 @@
 
-app.controller("dashboardController",function(user,$state,$http,$scope,$location,$uibModal,SweetAlert){
+app.controller("dashboardController",function(user,$state,$http,$rootScope,$scope,$location,$uibModal,SweetAlert){
     $scope.isSuperAdmin=user.isSuperAdmin;
     $scope.ownername=user.username;
     $scope.isAdmin=user.isAdmin;
     $scope.isMemer=user.isMember
     $scope.role=user.isSuperAdmin;
     $scope.useremail=user.email;
+    $scope.organizationName=user.orgname;
+    $rootScope.profileName=user.username;
+    $rootScope.profileEmail=user.email;
+    $rootScope.profileTeam=user.team;
+    $rootScope.profileOrg=user.orgname;
+
 
     $scope.logout=function(){
         localStorage.setItem("token","");
@@ -93,6 +99,54 @@ app.controller("dashboardController",function(user,$state,$http,$scope,$location
             })
     }
 
+    $scope.getOrgMembers=function(){
+        $http({
+            method:'GET',
+            url:"http://localhost:5500/getAllOrg",
+            headers:{
+                'Content-Type':'application/json'
+            }
+        }).then(function success(response){
+                 var org=response.data.docs;
+                
+                var organizationUsers=[];
+                for(var len=0;len<org.length;len++){
+                    if(org[len].orgname==$scope.organizationName){
+                        organizationUsers.push(org[len].users);
+                    }
+                    
+                    console.log(organizationUsers[0]);
+
+                   
+                }
+
+                var userArr=[];
+                for(var i=1;i<organizationUsers[0].length;i++){
+                    userArr.push(organizationUsers[0][i]);
+                }
+                console.log(userArr);
+                // $scope.orgUsers=organizationUsers[0];
+                $scope.orgUsers=userArr;
+
+                // for(var i=0;i<organizationUsers.length;i++){
+                //     userArr.push("Username"=organizationUsers[i].username)
+                // }
+                // console.log(userArr);
+
+
+               
+
+
+                
+            
+        },function myError(response){
+                console.log(response);
+        })
+}
+
+    //collapseTab
+    $scope.isCollapsed= true;
+    //
     
 
     $scope.getUser=function(){
@@ -132,17 +186,15 @@ app.controller("dashboardController",function(user,$state,$http,$scope,$location
 
     $scope.openModal = function () {
 
+        // $state.go('profile');
+       
+
         var modalInstance = $uibModal.open({
           ariaLabelledBy:'modal-title',
           ariaDescribedBy:'modal-body',
           templateUrl: 'views/dashboard/modal.html',
           controller: 'modalCtrl',
           controllerAs:'$ctrl'
-        //   resolve: {
-        //     items: function () {
-        //       return $scope.items;
-        //     }
-        //   }
         });
     
         modalInstance.result.then(function (selectedItem) {
@@ -151,6 +203,8 @@ app.controller("dashboardController",function(user,$state,$http,$scope,$location
        
         });
       };
+
+  
 
       $scope.openLargeModal = function (size) {
 

@@ -41,18 +41,20 @@ var UserSchema = new mongoose.Schema({
 // if(res){
 //   mapRoles[res.roles[0]]
 // }
-    ,
+    
     // roles:[{
 
-    //         role:{
-    //           type:String
+    //         role:{        
+    //           type:String   //superadmin
     //         },
-    //         order:{
-    //           type:Number
+    //         order:{  
+    //           type:Number    //3
     //         },
-    //         permissions:[String]
+    //         permissions:[String]  //['create','read','write','delete']
           
-    // }]
+    // }],
+
+    
 
   
 });

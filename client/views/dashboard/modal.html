@@ -1,58 +1,37 @@
-<!-- 
 
-<div class="modal-header">
-    <h3 class="modal-title" id="modal-title" style="color: #dc2b2b;">Profile</h3>
-    
-</div>
-<div class="modal-body" id="modal-body">
-    
-    <ul>
-        <li>
-             Name:{{req.data.user.username}} 
-        </li>
-        <li>
-             Email:{{useremail}} 
-        </li>
-    </ul>
-   
-</div>
-<div class="modal-footer">
- <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button> 
-    <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Close</button>
-</div> -->
 
-<div class="panel panel-primary"> 
+<div class="panel panel-primary" > 
     <div class="panel-heading">Profile</div>
     <div class="panel-body">
 <div class="well" id="wel">
 <div class="row">
-    <div class="col-sm-1">
-        <img clas="profile-img" src="" alt="user pic" width="70px" height="70px">
-    </div>
-    <div class="col-sm-4" id="profile">
-        <h2>Profile: UserRole
+    <!-- <div class="col-sm-1">
+        <img clas="" src="" alt="" width="70px" height="70px"> 
+    </div> -->
+    <!-- <div class="col-sm-4" id="profile"> -->
+        <h2>Member at {{profileOrg}}
         </h2>
-    </div>
+    <!-- </div> -->
 </div>
 </div>
 <div class="col-sm-8">
-<h3>Summary
+<h3>
 </h3>
 <h4>Account Details
 </h4>
 
-<h5 id ="fullname">Full Name:&nbsp;
+<h5 id ="fullname">Full Name:{{profileName}}
 </h5>
-<h5 id="email">Email:&nbsp;
-    <a href="#">user@gmail.com
+<h5 id="email">Email:{{profileEmail}}&nbsp;
+    <a href="">
     </a>
 </h5>
 <h5 id="password">Password:&nbsp;
-    <a href="#">Change Password
+    <a href="">Change Password
     </a>
 </h5>
 <p id ="details">Update these details through your 
-<a href="#">Login Account
+<a href="">Login Account
 </a>
 </p>
 
@@ -60,17 +39,17 @@
 <div class="row">
 <hr class="col-sm-7">
 </div>
-<h5 id="team">Role 
+<h5 id="team">Team : {{profileTeam}}
 </h5>
-<h6 id="username">Username:&nbsp;name of user
+<h6 id="username">Username:&nbsp; {{profileName}}
 </h6>
-<h6 id="groups">Groups:&nbsp;users
+<!-- <h6 id="groups">Team:&nbsp;users -->
 </h6>
 <div class="row">
 <hr class="col-sm-7">
 </div>
-<h5 id="preference" >Preferences
-</h5>
+<!-- <h5 id="preference" >Preferences
+</h5> -->
 <!-- <div id="prefer">
     <h6>Page Size:&nbsp;50
     </h6>
@@ -93,12 +72,17 @@
 <div id="labs">
     <h5>Status
     </h5>
-    <p>Number of Issues resolved
+    <p>Number of Bugs resolved
     <br>
-        Descriptop of project assigned
+        Description of project assigned
     </p> 
-    Issue detail View
-    <input type="checkbox" >
-</div>
+    <!-- Issue detail View
+    <input type="checkbox" > -->
+    </div>
     </div><!-- div panel-body -->
 </div><!-- div panel -->
+
+<div class="modal-footer">
+    
+    <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Close</button>
+</div> 

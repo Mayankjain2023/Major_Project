@@ -1,10 +1,9 @@
 var mongoose=require('mongoose');
 
 var Schema=mongoose.Schema;
-var issueSchema=new Schema({
+var bugSchema=new Schema({
 
     title:String,
-    type:String,
     status:String,
     priority:String,
     listPosition:Number,
@@ -42,7 +41,7 @@ var issueSchema=new Schema({
     }],
 },
     {
-        collection:"issues"
+        collection:"bugs"
     });
 
-module.exports=mongoose.model('issues',issueSchema);    
+module.exports=mongoose.model('bugs',issueSchema);    
