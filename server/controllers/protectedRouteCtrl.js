@@ -13,11 +13,12 @@ var superAdmin={
     createOrg:
     function(req,res){
         var org=new Org();
+        console.log(req.body);
 
-        org.orgname=req.body.username;
+        org.orgname=req.body.orgname;
 
         var user={
-            username:"Admin",
+            username:req.body.username,
             email:req.body.email,
             role:"Admin"
         };
@@ -25,10 +26,12 @@ var superAdmin={
         org.users.push(user);
 
         var userAdmin=new User();
-        userAdmin.username="Admin";
+        userAdmin.username=req.body.username;
         userAdmin.email=req.body.email;
         userAdmin.password="Admin@123";
-        userAdmin.org=req.body.name;
+        userAdmin.orgname=req.body.orgname;
+        userAdmin.isAdmin='true';
+        userAdmin.isMember='false';
 
         async.waterfall([function(callback){
             org.save(function(err){
@@ -66,6 +69,22 @@ var superAdmin={
             }
         })
         
+    },
+
+
+
+    getAllOrg:function(req,res){
+
+        Org.find(function(err,docs){
+            if(err){
+                return res.status(500).json({status:"error",message:"Database Error"+err,docs:""});
+            }
+            else{
+                res.status(200).json({status:'success',message:"success",docs:docs});
+            }
+        });
+
     }
+
 }
 module.exports=superAdmin;

@@ -1,200 +1,146 @@
-<!-- <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script> 
- <script src="..../bower_Components/ui-bootstrap4/dist/ui-bootstrap-tpls.js"></script>
-<script src="..../bower_Components/ui-bootstrap4/dist/ui-bootstrap-csp.css"></script>
 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-touch/1.8.3/angular-touch.min.js" integrity="sha512-f7nfAhahVgkfGWX/Ya3gmMaz9b2nSRI9Q3eftG+NH4W8NEOgWen8Rkv/p5ZL9WTTewoscB+dtO0YXNoJOxIv+A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>  -->
-
-<!-- <link rel="stylesheet" href="login.css"> -->
 
 <style>
-    body {
-    font-family: "Lato", sans-serif;
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
 }
 
-
-
-.main-head{
-    height: 150px;
-    background: #FFF;
-   
+body {
+  background: #4886f1;
+  font-family: 'Rubik', sans-serif;
 }
 
-.sidenav {
-    height: 100%;
-    background-color: rgb(14, 86, 188);
-    overflow-x: hidden;
-    padding-top: 20px;
+.login-form {
+  background: #fff;
+  width: 500px;
+  margin: 65px auto;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  border-radius: 4px;
+  box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
 }
-
-
-.main {
-    padding: 0px 10px;
+.login-form h1 {
+  padding: 35px 35px 0 35px;
+  font-weight: 300;
 }
-
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
+.login-form .content {
+  padding: 35px;
+  text-align: center;
 }
-
-@media screen and (max-width: 450px) {
-    .login-form{
-        margin-top: 10%;
-    }
-
-    
+.login-form .input-field {
+  padding: 12px 5px;
 }
-
-@media screen and (min-width: 768px){
-    .main{
-        margin-left: 50%; 
-    }
-
-    .sidenav{
-        width: 50%;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-    }
-
-    .login-form{
-        margin-top: 50%;
-    }
-
-    .register-form{
-        margin-top: 20%;
-    }
+.login-form .input-field input {
+  font-size: 16px;
+  display: block;
+  font-family: 'Rubik', sans-serif;
+  width: 100%;
+  padding: 10px 1px;
+  border: 0;
+  border-bottom: 1px solid #747474;
+  outline: none;
+  -webkit-transition: all .2s;
+  transition: all .2s;
 }
-
-
-.login-main-text{
-    margin-top: 20%;
-    padding: 60px;
-    color: #fff;
+/* .login-form .input-field input::-webkit-input-placeholder {
+  text-transform: uppercase;
 }
-
-.login-main-text h2{
-    font-weight: 300;
+.login-form .input-field input::-moz-placeholder {
+  text-transform: uppercase;
 }
-
-.btn-black{
-    background-color: #000 !important;
-    color: #fff;
+.login-form .input-field input:-ms-input-placeholder {
+  text-transform: uppercase;
+}
+.login-form .input-field input::-ms-input-placeholder {
+  text-transform: uppercase;
+}
+.login-form .input-field input::placeholder {
+  text-transform: uppercase; */
+/* } */
+.login-form .input-field input:focus {
+  border-color: #222;
+}
+.login-form a.link {
+  text-decoration: none;
+  color: #747474;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-top: 20px;
+}
+.login-form .action {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+}
+.login-form .action button {
+  width: 100%;
+  border: none;
+  padding: 18px;
+  font-family: 'Rubik', sans-serif;
+  cursor: pointer;
+  text-transform: uppercase;
+  background: #e8e9ec;
+  color: #777;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 0;
+  letter-spacing: 0.2px;
+  outline: 0;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+.login-form .action button:hover {
+  background: #d8d8d8;
+}
+.login-form .action button:nth-child(2) {
+  background: #2d3b55;
+  color: #fff;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 4px;
+}
+.login-form .action button:nth-child(2):hover {
+  background: #3c4d6d;
 }
 </style>
-
-<!-- <body ng-controller="loginCtrl"> -->
-    <body>
-        
-    
-
-
-<div class="sidenav">
-    <div class="login-main-text">
-       <h1>BugTracker</h1>
-       <h3>...to complete your project on schedule</h3>
-
-           <br>
-       <h4>Login from here to access</h4>
-    </div>
- </div>
-
- <div class="main">
-    <div class="col-md-6 col-sm-12">
-        
-       <div class="login-form">
-          <form name="loginForm" autocomplete="off" novalidate>
-             <div class="form-group">
-                <label>User Name</label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" ng-model="email" required>
-                <span style="color:red" ng-show="loginForm.email.$invalid && loginForm.email.$touched && loginForm.email.$pristine">Enter a valid email address</span>
-            
-                <br>
-                <label>Password</label>
-                <input type="password" name="password" id="password" placeholder="Enter Password" ng-model="password" class="form-control" required>
-             </div>
-             <button type="submit" class="btn btn-black" ng-click="login()" ng-disabled="loginForm.email.$invalid || loginForm.password.$invalid">Login</button>
-                    <div class="alert alert-danger" role="alert" ng-show="invalidAlert" >Invalid Credentials!</div>
-             <!-- <button type="submit" class="btn btn-secondary" >Register</button> -->
-             <button class="btn btn-black" ui-sref="home">Go Back</button>
-             
-             <button class="btn btn-success" ui-sref="updatePassword">Change Password</button>
-          </form>
-       </div>
-    </div>
- </div>
-
-</body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
-    <div class="container">
-
-        <div class="row">
-            <div class="col-md-6" style=" margin-top:50px;">
-            </div>
-            <div class="col-md-6" style=" margin-top:50px;">
-       
-            <div id="loginbox" style="margin-top: 30px;" class="mainbox col col-md-offset-3"></div>
-        <div >
-            <div>   
-                <h1 class="text-primary" style="text-align:  center; font-family:'Times New Roman', Times, serif;">Login</h1>  
-                    <form name="loginForm" autocomplete="off" novalidate>
-                        <div class="form-group" >
-                        <label> Username </label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" ng-model="email" required>
-                
-                        <span style="color:red" ng-show="loginForm.email.$invalid && loginForm.email.$touched && loginForm.email.$pristine">Enter a valid email address</span>
-                    </div>
-
-
-                    <div class="form-group" >
-                        <label> Password </label>
-                        <input type="password" name="password" id="password" placeholder="Enter Password" ng-model="password" class="form-control" required>
-                    </div>
-
-                    
-                    <button class="btn btn-primary" type="submit" ng-click="login()" ng-disabled="loginForm.email.$invalid || loginForm.password.$invalid">Sign In</button>
-                    <div class="alert alert-danger" role="alert" ng-show="invalidAlert" >Invalid Credentials!</div>
-
-                
-                    <button type="submit" value="Submit" class="btn btn-primary" ng-click="gotoProducts()" ng-disabled="loginForm.$invalid">Submit</button>  
-                    <h4>Not registered? <a ui-sref="register">Sign Up</a></h4>
-                    
-                </form>
-                </div>
-
-
-            </div>
-
-        </div>
-
-    </div>    
- -->
-
-
   
+
+ <body ng-controller="loginCtrl">
+
+    <div class="login-form">
+      <form>
+        <h1>Login</h1>
+        <div class="content">
+          <div class="input-field">
+            <!-- <input type="email" placeholder="Email" autocomplete="nope"> -->
+            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" ng-model="email" required>
+                <span style="color:red" ng-show="login-form.email.$invalid && login-form.email.$touched && login-form.email.$pristine">Enter a valid email address</span>
+          </div>
+          <div class="input-field">
+            <!-- <input type="password" placeholder="Password" autocomplete="new-password"> -->
+            <input type="password" name="password" id="password" placeholder="Enter Password" ng-model="password" class="form-control" required>
+          </div>
+          <a href="" class="link">Forgot Your Password?</a>
+        </div>
+        <div class="action">
+          
+          <button type="submit"  ng-click="login()" ng-disabled="login-form.email.$invalid || login-form.password.$invalid">Sign in</button>
+          <div class="alert alert-danger" role="alert" ng-show="invalidAlert" >Invalid Credentials!</div>
+
+          <button ui-sref="home">Go Home</button>
+        </div>
+      </form>
+    </div>
+    
+     
+    
+    </body>
+    </html>

@@ -1,3 +1,9 @@
+
+<style>
+
+
+
+</style>
 <body ng-controller="dashboardController.js">
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
@@ -54,7 +60,7 @@
       <ul class="navbar-nav justify-content-end">
         <li class="nav-item dropdown">
             <div class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{name}}
+              {{ownername}}
             </div>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="">{{useremail}}</a>
@@ -70,25 +76,33 @@
 
 
     <div class="container-fluid">
-      <uib-tabset  active="activePill" justified="true" vertical="true" type="pills">
-        <uib-tab index="0"  heading="Organizations">
+      <uib-tabset active="activePill" justified="true" vertical="true" type="pills">
+        <uib-tab index="0" ng-init="getOrg()" heading="Organizations">
 
-          <div class="panel panel-primary	" style="margin-top: 30px;">
-            <div class="panel-heading">Organizations</div>
-            <div class="panel-body">
-              
-          <ul>
-             
-             <!-- <li ><a href="" ng-click=""></a></li> -->
-             
-          </ul>
-          
-        </div>
-      </div>
-    
-
+          <div >
+            <div>
+              <div style="margin-top:20px ;" >
+                <div class="row">
+                    <div class="col-sm-3" ng-repeat="name in orgNameValues">
+                      <div class="card" style="width:auto; height: auto;">
+                        <img class="card-img-top" src="https://st3.depositphotos.com/5161043/15749/v/600/depositphotos_157496038-stock-illustration-technology-circle-logo-symbols-vector.jpg" alt="" style="width:100%">
+                          <div class="card-body">
+                            <h1 class="card-title" style="text-align:center ;" >{{name}}</h1>
+                            <div class="card-footer text-center">
+                              <button href="" class="btn btn-primary" ng-click="openOrgModal(name)">View Details</button>
+                            </div>
+                                
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </uib-tab>
+
+
 
         <uib-tab index="1"  heading="Create organization"> 
           <div class="container" style="margin-top: 30px;">
@@ -108,11 +122,11 @@
                           
                           
                           <label >Name of Admin</label>
-                          <input type="username" class="form-control" name="username" id="username" placeholder="Enter name" ng-model="adminName" required>
+                          <input type="text" class="form-control" name="username" id="username" placeholder="Enter name" ng-model="adminName" required>
                           <br>
                           <p style="color:red" ng-show="registerForm.username.$invalid && registerForm.username.$touched">Enter a valid email address</p>
                           
-                          <label >Username</label>
+                          <label >Email</label>
                           <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" ng-model="adminEmail" required>
                           <br>
                           <p style="color:red" ng-show="registerForm.email.$invalid && registerForm.email.$touched">Enter a valid email address</p>
@@ -127,7 +141,7 @@
           
           
                       
-                      <button type="submit" class="btn btn-primary" type="submit" ng-click="createOrg(orgName,adminEmail,adminPassword,adminName)"
+                      <button type="submit" class="btn btn-primary" type="submit" ng-click="createOrg(orgName,adminName,adminEmail,adminPassword)"
                         ng-disabled="registerForm.username.$invalid || registerForm.email.$invalid || registerForm.password.$invalid" >Register</button>
                       <div class="alert alert-danger" role="alert" ng-show="invalidAlert" >Invalid Credentials!</div>
                       </form>

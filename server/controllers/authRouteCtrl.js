@@ -4,6 +4,19 @@ var bcrypt=require("bcryptjs");
 var jwt=require('jsonwebtoken');
 
 var authenticate={
+
+    getAllMembers:function(req,res){
+
+        User.find(function(err,docs){
+            if(err){
+                return res.status(500).json({status:"error",message:"Database Error"+err,docs:""});
+            }
+            else{
+                res.status(200).json({status:'success',message:"success",docs:docs});
+            }
+        });
+
+    },
     // register:function(req,res){
 
     //     var user=new User();
@@ -38,36 +51,32 @@ var authenticate={
     // },
 
     createUser:function(req,res){
-
-        
-
-        Org.find({orgname:req.body.orgname}).then(function(org){
-            console.log(org._id);
-            console.log(org.users);
-            console.log(org.orgname);
-
-            if(!org){
-                return res.status(401).json({statue:"Error",message:"Organization not found"})
+        var user={
+            username:req.body.username,
+            email:req.body.email,
+            role:"Member"
+        }
+        Org.updateOne(
+            {
+                orgname:req.body.orgname
+             
+            },{
+                $push:{users: user}
             }
-            var user={
-                username:req.body.username,
-                email:req.body.email,
-                role:"Member"
-            }
-            
-            var org=Org();
-            org.users.push(user);
-            console.log(org.users);
+        ).then(function(sucess){
+            if(!sucess)
+                res.status(200).json({status:"success",message:"Cannot organization added"});
 
-            console.log(req.body);
+            var user=new User();
+                user.username=req.body.username;
+                user.email=req.body.email;
+                user.password=req.body.password;
+                user.team=req.body.teamname;
+                user.isMember='true';
+                
 
-        var user=new User();
-        user.username=req.body.username;
-        user.email=req.body.email;
-        user.password=req.body.password;
-        user.team=req.body.teamname;
 
-        // user.org=req.body.org;
+     
   
         bcrypt.genSalt(10, function(err, salt){
             bcrypt.hash(user.password, salt, function(err, hash){
@@ -91,11 +100,15 @@ var authenticate={
                 });
             });
         });
-
-
-        })
-
+            
+    });
         
+
+
+       
+        
+    // })
+
 },
 
     login: function(req,res){
@@ -163,6 +176,8 @@ var authenticate={
                 admin.password="Superadmin@1234";
 
                 admin.isSuperAdmin=true;
+                admin.isMember=false;
+                admin.isAdmin=false;
                 bcrypt.genSalt(10, function(err, salt){
                     bcrypt.hash(admin.password, salt, function(err, hash){
                       if (err) 

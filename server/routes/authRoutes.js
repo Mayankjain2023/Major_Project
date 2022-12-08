@@ -14,4 +14,5 @@ router.post("/createUser",authenticate.createUser);
 router.post("/login",authenticate.login);
 router.post("/updatePassword",authenticate.updatepwd);
 router.post("/createSuperAdmin",authenticate.create);
+router.get("/getAllMembers",authenticate.getAllMembers);
 module.exports=router;

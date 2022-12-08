@@ -53,7 +53,7 @@
       <ul class="navbar-nav justify-content-end">
         <li class="nav-item dropdown">
             <div class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{name}}
+              {{ownername}}
             </div>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="">{{useremail}}</a>
@@ -90,22 +90,24 @@
         </div>
   
       </uib-tab>
-      <uib-tab index="1" heading="MEMBERS"> 
+      <uib-tab index="1" ng-init="getUser()" heading="MEMBERS"> 
   
   
         <div class="panel panel-primary	" style="margin-top: 30px;">
           <div class="panel-heading">Members</div>
           <div class="panel-body">
-            
-        <ul>
-           
-            <!-- <li ><a href=""></a></li>  -->
-            DISPLAY MEMBERS
-           
-        </ul>
-        
+            <div></div>
+            <div>
+              <div class="card" style="width:400px" >
+                <div class="card-body">
+                  <h4 class="card-title"></h4>
+                 
+                  <a href="#" class="btn btn-primary">See Profile</a>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </div> 
   
       </uib-tab>
       <uib-tab index="2" heading="ADD PROJECT">
@@ -206,9 +208,12 @@
                         
                         <p style="color:red" ng-show="userRegisterForm.teamname.$invalid && userRegisterForm.teamname.$touched">Team Name is required</p>
                         <br>
+                        <label >Organization</label>
+                        <input type="text" class="form-control" name="orgname" id="orgname" placeholder="Organization" ng-model="orgname" required>
+                        <br>
                     </div>
                     <!-- <div>{{uname}},{{em}},{{pwd}},{{tmname}}</div> -->
-                    <button type="submit" class=" btn btn-success" ng-click="createUser(uname,em,pwd,tmname)" >Register</button>
+                    <button type="submit" class=" btn btn-success" ng-click="createUser(uname,em,pwd,tmname,orgname)" >Register</button>
                       <!-- ng-disabled="userRegisterForm.email.$invalid || userRegisterForm.password.$invalid"  -->
                     <div class="alert alert-danger" role="alert" ng-show="invalidAlert" >Invalid Credentials!</div>
                     </form>

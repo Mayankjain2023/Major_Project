@@ -128,7 +128,7 @@
 
   <div ng-if="isSuperAdmin" ng-include="'views/superAdmin/superAdmin.html'"></div>
   <div ng-if="isAdmin" ng-include="'views/admin/admin.html'"></div>
-  <div ng-if="isSuperAdmin==false && isAdmin==false" ng-include="'views/member/member.html'"></div>
+  <div ng-if="!isSuperAdmin && !isAdmin" ng-include="'views/member/member.html'"></div>
 
 
 

@@ -12,6 +12,7 @@ require('../config/passport');
 
 router.get("/dashboard",passport.authenticate('jwt',{session:false}),superAdmin.dashboard);
 router.post("/createOrg",superAdmin.createOrg);
+router.get("/getAllOrg",superAdmin.getAllOrg);
 
 
 module.exports=router;

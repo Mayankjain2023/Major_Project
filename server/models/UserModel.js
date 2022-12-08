@@ -1,27 +1,69 @@
 var mongoose = require('mongoose');
 
 var UserSchema = new mongoose.Schema({
-  username: { type: String, required: true},
-  email: { type: String, required: true },
-  password: { type: String,required: true },
-  team:{ type:String, required:false},
-  org:{
+  username: { 
+    type: String,
+    required: true
+  },
+  email: { 
+    type: String,
+    required: true 
+  },
+  password: { 
+    type: String,
+    required: true
+   },
+  team:{
+    type:String, 
+    required:false},
+  orgname:{
     type:String,
     required:false
-   },
-   role:{
-    type:String
-   },
-  
+  },
+ 
   isSuperAdmin:{
     type:Boolean,
     default:false
+  },
+  isAdmin:{
+    type:Boolean,
+    default:false
+  },
+  isMember:{
+    type:Boolean,
+    default:false
   }
+// roles:['superAdmin']
+
+// const mapRoles={
+//   superAdmind:'SUPERADMIN'
+// }
+// if(res){
+//   mapRoles[res.roles[0]]
+// }
+    ,
+    // roles:[{
+
+    //         role:{
+    //           type:String
+    //         },
+    //         order:{
+    //           type:Number
+    //         },
+    //         permissions:[String]
+          
+    // }]
+
+  
 });
 
 var User = mongoose.model('UserModel', UserSchema);
 
 module.exports = User;
+
+
+
+
 
 
 
