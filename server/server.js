@@ -26,6 +26,7 @@ app.all('/*',function(req,res,next){
 });
 app.use('/user/',require('./routes/authRoutes.js'));
 app.use('/',require('./routes/protectedRoutes.js'));
+app.use('/',require('./routes/projectRoute.js'));
 
 
 app.listen(5500,function(){

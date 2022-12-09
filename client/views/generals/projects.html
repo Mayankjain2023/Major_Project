@@ -1,0 +1,37 @@
+<style>
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+    td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+    tr:nth-child(even) {
+    background-color: #d2e5fa;
+  }
+
+</style>
+<body>
+    <table>
+        <tr>
+          <th>Project Name</th>
+          <th>Start Date</th>
+          <th>Deadline</th>
+        </tr>
+        <tr ng-repeat="project in projects">
+          <td>{{project.project_name}}</td>
+          <td>{{project.start_date}}</td>
+          <td>{{project.end_date}}</td>
+          <td>
+            <button class="btn btn-success">Comment</button>
+          </td>
+        </tr>
+      </table>
+</body>
+      
+  

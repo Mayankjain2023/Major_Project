@@ -20,27 +20,27 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
 
 
 
-    $scope.createOrg=function(orgName,adminName,adminEmail,adminPassword){
-        var username=adminName;
-        var orgname = orgName;
-        var email=adminEmail;
-        var password=adminPassword;
-        $scope.passAlert=false;
+    // $scope.createOrg=function(orgName,adminName,adminEmail,adminPassword){
+    //     var username=adminName;
+    //     var orgname = orgName;
+    //     var email=adminEmail;
+    //     var password=adminPassword;
+    //     $scope.passAlert=false;
         
-        console.log(username+" "+email+" "+ password);
-        $http({
-            method:"POST",
-            url:"http://localhost:5500/createOrg",
-            data:{'username':username,'orgname': orgname,'email':email,'password':password}
-        })
-        .then(function mysuccess(response){
-            SweetAlert.swal("Organization added successfully");
-            $state.reload();
-            console.log(response);
-        },function myError(response){
-            console.log(response);
-        });
-    }
+    //     console.log(username+" "+email+" "+ password);
+    //     $http({
+    //         method:"POST",
+    //         url:"http://localhost:5500/createOrg",
+    //         data:{'username':username,'orgname': orgname,'email':email,'password':password}
+    //     })
+    //     .then(function mysuccess(response){
+    //         SweetAlert.swal("Organization added successfully");
+    //         $state.reload();
+    //         console.log(response);
+    //     },function myError(response){
+    //         console.log(response);
+    //     });
+    // }
     $scope.closeAlert=function(){
         $scope.passAlert=false;
     }
@@ -51,7 +51,6 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
         var name=uname;
         var email=em;
         var password=pwd;
-        var teamname=tmname;
         var orgname=orgname;
        
         $scope.passAlert=false;
@@ -60,7 +59,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
         $http({
             method:"POST",
             url:"http://localhost:5500/user/createUser",
-            data:{'username':name,'email':email,'password':password,'teamname':teamname,'orgname':orgname}
+            data:{'username':name,'email':email,'password':password,'orgname':orgname}
         })
         .then(function mysuccess(response){
 
@@ -74,6 +73,29 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
             
         });
     }
+
+    $scope.createProjectManager=function(pmName,pmEmail,userId){
+
+        var pmName=pmName;
+        var pmEmail=pmEmail;
+        var orgname=user.orgname;
+        var userId=userId;
+
+        console.log(pmName+"" +pmEmail+""+orgname+""+userId);
+        $http({
+            method:"POST",
+            url:"http://localhost:5500/createProjectManager",
+            data:{'pmName':pmName,'pmEmail':pmEmail,'orgname':orgname,'userId':userId}
+        }).then( function mysuccess(response){
+            SweetAlert.swal('Project Manager Created Successfully')
+            $state.reload();
+            console.log(response);
+        },function myError(response){
+            $location.path("/dashboard");
+            console.log(response);
+        })
+    }
+
 
     $scope.getOrg=function(){
             $http({
@@ -108,6 +130,8 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
             }
         }).then(function success(response){
                  var org=response.data.docs;
+
+                 console.log(org);
                 
                 var organizationUsers=[];
                 for(var len=0;len<org.length;len++){
@@ -115,10 +139,11 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
                         organizationUsers.push(org[len].users);
                     }
                     
-                    console.log(organizationUsers[0]);
+                    
 
                    
                 }
+                console.log(organizationUsers[0]);
 
                 var userArr=[];
                 for(var i=1;i<organizationUsers[0].length;i++){

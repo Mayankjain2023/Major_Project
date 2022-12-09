@@ -1,14 +1,9 @@
 
-<style>
-
-
-
-</style>
+<style></style>
 <body ng-controller="dashboardController.js">
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
-        <a class="navbar-brand" href="" >
-          BugTracker</a>
+        <a class="navbar-brand" href="" >BugTracker</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -76,6 +71,7 @@
 
 
     <div class="container-fluid">
+      
       <uib-tabset active="activePill" justified="true" vertical="true" type="pills">
         <uib-tab index="0" ng-init="getOrg()" heading="Organizations">
 
@@ -104,55 +100,7 @@
 
 
 
-        <uib-tab index="1"  heading="Create organization"> 
-          <div class="container" style="margin-top: 30px;">
-            <div class="panel">
-              <div class="panel-body">
-                <div class="row">
-                  
-                  <div class="col-sm-6 col-md-6 col-md-offset-3">
-
-                    <form name="registerForm" method="post" role="form" autocomplete="off" novalidate >
         
-                      <div class="form-group">
-                          <label>Name of organization</label>
-                          <input type="text" name="orgname" id="orgname" class="form-control" placeholder="Enter Full Name" ng-model="orgName" required>
-                          <br>
-                          <p style="color:red" ng-show="registerForm.orgname.$invalid && registerForm.orgname.$touched">Name is required</p>
-                          
-                          
-                          <label >Name of Admin</label>
-                          <input type="text" class="form-control" name="username" id="username" placeholder="Enter name" ng-model="adminName" required>
-                          <br>
-                          <p style="color:red" ng-show="registerForm.username.$invalid && registerForm.username.$touched">Enter a valid email address</p>
-                          
-                          <label >Email</label>
-                          <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" ng-model="adminEmail" required>
-                          <br>
-                          <p style="color:red" ng-show="registerForm.email.$invalid && registerForm.email.$touched">Enter a valid email address</p>
-          
-                          <label >Password</label>
-                          <input type="password" class="form-control" name="password" id="password" placeholder="Create temporary password" ng-model="adminPassword" required>
-                          <br>
-                          <p style="color:red" ng-show="registerForm.password.$invalid && registerForm.password.$touched">Please provide password</p>
-          
-                      </div>
-          
-          
-          
-                      
-                      <button type="submit" class="btn btn-primary" type="submit" ng-click="createOrg(orgName,adminName,adminEmail,adminPassword)"
-                        ng-disabled="registerForm.username.$invalid || registerForm.email.$invalid || registerForm.password.$invalid" >Register</button>
-                      <div class="alert alert-danger" role="alert" ng-show="invalidAlert" >Invalid Credentials!</div>
-                      </form>
-                    
-                   
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </uib-tab>
       </uib-tabset>
     </div>
     

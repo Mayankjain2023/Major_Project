@@ -5,6 +5,8 @@ var jwt=require('jsonwebtoken');
 
 var authenticate={
 
+    //get all members in the org
+
     getAllMembers:function(req,res){
 
         User.find(function(err,docs){
@@ -17,39 +19,66 @@ var authenticate={
         });
 
     },
-    // register:function(req,res){
+    
+    createOrg:function(req,res){
+        var org=new Org();
+        console.log(req.body);
 
-    //     var user=new User();
-    //     user.user_name=req.body.user_name;
-    //     user.email=req.body.email;
-    //     user.password=req.body.password;
-  
-    //     bcrypt.genSalt(10, function(err, salt){
-    //         bcrypt.hash(user.password, salt, function(err, hash){
-    //           if (err) 
-    //           {
-    //             res.status(500).json({status:'error',message:'Bcrypt Error:'+err,token:''});
-    //             return;
-    //           }
+        org.orgname=req.body.orgname;
 
-    //           user.password = hash;
+        var user={
+            username:req.body.username,
+            email:req.body.email,
+            role:"Admin"
+        };
 
-    //           user.save(function(err){
-    //             if(err){
-    //                 res.status(500).json({status:'error',message:'Database Error:'+err,token:''});
-    //             }else{
-    //                 var payload={email:user.email,id:user.id};
-    //                 var secret="SECRET";
-    //                 var token=jwt.sign(payload,secret,{expiresIn:'1d'});
-    //                 res.status(200).json({status:'success',message:'SignUp successful',token:"Bearer "+token});
-    //             }
-    //             });
-    //         });
-    //     });
+        org.users.push(user);
 
+        var userAdmin=new User();
+        userAdmin.username=req.body.username;
+        userAdmin.email=req.body.email;
+        userAdmin.password="Admin@123";
+        userAdmin.orgname=req.body.orgname;
+        userAdmin.isAdmin='true';
+        userAdmin.isMember='false';
+
+        async.waterfall([function(callback){
+            org.save(function(err){
+                if(err){
+                    callback(err,null);
+                }else{
+                    callback(null,"done");
+                }
+                })
+        },function(arg1,callback){
+            bcrypt.genSalt(10, function(err, salt){
+                bcrypt.hash(userAdmin.password, salt, function(err, hash){
+                  if (err) 
+                  {
+                    callback(err,null);
+                  }
+                  else
+                    callback(null,hash);
+                });
+            });
+        },function(hash,callback){
+            userAdmin.password=hash;
+            userAdmin.save(function(err){
+                if(err){
+                    callback(err,null);
+                }else{
+                    callback(null,"Organisation added successfully");
+                }
+                });
+        }],function(err,result){
+            if(err){
+                res.status(500).json({status:'error',message:'Cannot create organization. Error is '+err});
+            }else{
+                res.status(200).json({status:'success',message:result});
+            }
+        })
         
-    // },
-
+    },
     createUser:function(req,res){
         var user={
             username:req.body.username,
@@ -102,12 +131,6 @@ var authenticate={
         });
             
     });
-        
-
-
-       
-        
-    // })
 
 },
 

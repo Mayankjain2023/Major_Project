@@ -12,27 +12,27 @@
 //     }
 
             
-//         $scope.createOrg=function(){
-//             var orgname = $scope.orgname;
-//             var adminname=$scope.username;
-//             var email=$scope.email;
-//             var password=$scope.password;
-//             $scope.passAlert=false;
+        // $scope.createOrg=function(){
+        //     var orgname = $scope.orgname;
+        //     var adminname=$scope.username;
+        //     var email=$scope.email;
+        //     var password=$scope.password;
+        //     $scope.passAlert=false;
             
-//             console.log(username+" "+email+" "+ password);
-//             $http({
-//                 method:"POST",
-//                 url:"http://localhost:5500/createOrg",
-//                 data:{'username':orgname,'email':email,'password':password}
-//             })
-//             .then(function mysuccess(response){
-//                 // SweetAlert.swal("Organization added successfully");
-//                 // $location.path("/dashboard");
-//                 console.log(response);
-//             },function myError(response){
-//                 console.log(response);
-//             });
-//         }
+        //     console.log(username+" "+email+" "+ password);
+        //     $http({
+        //         method:"POST",
+        //         url:"http://localhost:5500/createOrg",
+        //         data:{'username':orgname,'email':email,'password':password}
+        //     })
+        //     .then(function mysuccess(response){
+        //         // SweetAlert.swal("Organization added successfully");
+        //         // $location.path("/dashboard");
+        //         console.log(response);
+        //     },function myError(response){
+        //         console.log(response);
+        //     });
+        // }
 
 //         $scope.openLargeModal = function (size) {
 

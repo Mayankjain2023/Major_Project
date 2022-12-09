@@ -7,10 +7,19 @@ var now=new Date();
 var projectManagerSchema=new Schema({
 
     name:{
-        type:String
+        type:String,
+        required:true
     },
     email:{
+        type:String,
+        required:true
+    },
+    orgname:{
         type:String
+
+    },
+    userId:{
+        type:mongoose.Schema.Types.ObjectId
     },
     createAt:{
             type:String,
@@ -21,8 +30,8 @@ var projectManagerSchema=new Schema({
         default:now.toISOString()
     }
 
-},{
-    collection:"projectManagers"
 });
 
-module.exports=mongoose.model('projectManagers',projectManagerSchema);
+
+var projectManagers=mongoose.model('projectManagers',projectManagerSchema);
+module.exports=projectManagers;

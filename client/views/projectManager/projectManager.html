@@ -1,0 +1,120 @@
+<body ng-controller="dashboardController">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
+            <a class="navbar-brand" href="" >BugTracker</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" >
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#!dashboard"> Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href=""></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href=""></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href=""></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href=""></a>
+                </li>
+            </ul> 
+        </div>
+        <div class="collapse navbar-collapse" >
+              <form class="form-inline">
+                    <input class="form-control mr-lg-2" type="search" placeholder="Search your bugs" aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+              </form>
+        </div>
+    
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item"></li>
+                <li class="nav-item"></li>
+            </ul>
+        </div>
+    
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav justify-content-end">
+                <li class="nav-item dropdown">
+                    <div class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ownername}}
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="">{{useremail}}</a>
+                        <a class="dropdown-item" href="" ng-click="openModal()">Profile</a>
+                        <a class="dropdown-item" href="">Settings</a>
+                        <a class="dropdown-item" ng-click="logout()">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <uib-tabset active="activePill" type="pills" justified="true">
+            <uib-tab index="1" heading="PROJECTS" >
+                <div class="panel panel-primary	" style="margin-top: 30px;">
+                  <div class="panel-heading">Projects</div>
+                    <div class="panel-body">
+                        <div ng-include="views/projectManager/projectManager.html"></div>
+                    </div>
+                </div>
+          
+            </uib-tab>
+            <uib-tab index="2" heading="ADD PROJECT">
+                <div class="container">
+                  <div class="panel" style="margin-top: 30px;">
+                      <div class="panel-body">
+                          <div class="row">
+                              <div class="col-sm-6 col-md-6 col-md-offset-3">
+                                  <form method="post" role="form" autocomplete="off" >
+                                        <div class="row">
+                                            <label> Title </label>
+                                            <input type="text" tabindex="1" class="form-control">
+                                        </div>
+                                      <br>
+                                      <div class="row">
+                                          <label> Descripition </label>
+                                          <textarea name="description" class="form-control" > 
+                                          </textarea>
+                                      </div>
+                                      <br>
+                                      <div class="row">
+                                          <label>Assignees</label><br>
+                                          <select class="form-control selectpicker" multiple>
+                                              <option ng-repeat="u in orgUsers" value="u._id">{{u.username}}
+                                              </option>
+                                          </select>
+                                          
+                                      </div>
+                                      <div class="row">
+                                          <label>Start Date</label> 
+                                          <input type="date" class="form-control" > 
+                                      </div>
+                                      <br>
+                                      <div class="row">
+                                          <label>End Date</label> 
+                                          <input type="date" class="form-control"> 
+                                      </div>
+                                      <br>
+                                     
+              
+                                      <div class="row">
+                                          <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="btn btn-success" value="Create Project">
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</body>

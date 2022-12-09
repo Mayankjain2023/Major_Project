@@ -23,6 +23,11 @@ app.config(function($stateProvider,$urlRouterProvider){
                     url:"/login"
                     
                 })
+                .state("register",{
+                    controller:"registerCtrl",
+                    templateUrl:"views/register/register.html",
+                    url:"/register"
+                })
                 .state("updatePassword",{
                     templateUrl:"views/login/updatePwd.html",
                     controller:"updatepwdCtrl",

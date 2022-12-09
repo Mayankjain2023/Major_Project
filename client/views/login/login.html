@@ -120,12 +120,10 @@ body {
         <h1>Login</h1>
         <div class="content">
           <div class="input-field">
-            <!-- <input type="email" placeholder="Email" autocomplete="nope"> -->
-            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" ng-model="email" required>
+           <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" ng-model="email" required>
                 <span style="color:red" ng-show="login-form.email.$invalid && login-form.email.$touched && login-form.email.$pristine">Enter a valid email address</span>
           </div>
           <div class="input-field">
-            <!-- <input type="password" placeholder="Password" autocomplete="new-password"> -->
             <input type="password" name="password" id="password" placeholder="Enter Password" ng-model="password" class="form-control" required>
           </div>
           <a href="" class="link">Forgot Your Password?</a>
@@ -133,9 +131,12 @@ body {
         <div class="action">
           
           <button type="submit"  ng-click="login()" ng-disabled="login-form.email.$invalid || login-form.password.$invalid">Sign in</button>
-          <div class="alert alert-danger" role="alert" ng-show="invalidAlert" >Invalid Credentials!</div>
-
-          <button ui-sref="home">Go Home</button>
+          <!-- <div class="alert alert-danger" role="alert" ng-show="invalidAlert" >Invalid Credentials!</div> -->
+          <button ui-sref="register">Register</button>
+          
+        </div>
+        <div class="action">
+            <button ui-sref="home">Go Home</button>
         </div>
       </form>
     </div>

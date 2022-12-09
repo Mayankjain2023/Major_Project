@@ -16,10 +16,7 @@
   }
 
 
-  /* collapse */
-  .horizontal-collapse {
-    height: 70px;
-  }
+  
   </style>
 
 <body>
@@ -95,7 +92,6 @@
   <div class="container-fluid">
 
     <uib-tabset active="activePill" type="pills" justified="true">
-      
       <uib-tab index="0" ng-init="getOrgMembers()" heading="MEMBERS">
         <div class="panel panel-primary	" style="margin-top: 30px;">
           <div class="panel-heading">Members</div>
@@ -105,79 +101,55 @@
               <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Role</th>
                 <th>Actions</th>
               </tr>
               <tr ng-repeat="users in orgUsers">
                 <td>{{users.username}}</td>
                 <td>{{users.email}}</td>
-                <!-- <td>{{users.team}}</td> -->
-
+                <td>{{users.role}}</td>
                 <td>
                   <button class="btn btn-primary">view Profile</button>
-                  <button class="btn btn-success">Remove</button>
+                  <button class="btn btn-danger">Remove</button>
                   <button class="btn btn-warning">Modify Permissions</button>
-
                 </td>
               </tr>
-
-              
             </table>
           </div>
         </div> 
-  
-      </uib-tab>
-      <uib-tab index="1" heading="PROJECTS" >
+    </uib-tab>
+      <uib-tab index="1"  heading="PROJECTS" >
         <div class="panel panel-primary	" style="margin-top: 30px;">
           <div class="panel-heading">Projects</div>
             <div class="panel-body">
-             
+              <div ng-include="views/generals/project.html"></div>
+            </div>
           </div>
-        </div>
   
       </uib-tab>
-      <uib-tab index="2" heading="ADD PROJECT">
-  
-  
+      <uib-tab index="2" heading="Create Project Manager">
         <div class="container">
           <div class="panel" style="margin-top: 30px;">
               <div class="panel-body">
                   <div class="row">
                       <div class="col-sm-6 col-md-6 col-md-offset-3">
                           <form method="post" role="form" autocomplete="off" >
-      
+
                               <div class="row">
-                                  <label> Title </label>
-                                  <input type="text" tabindex="1" class="form-control"  >
-                              </div>
-                              <br>
-                              <div class="row">
-                                  <label> Descripition </label>
-                                  <textarea name="description" class="form-control" > 
-                                  </textarea>
-                              </div>
-                              <br>
-                              <div class="row">
-                                  <label>Assignees</label><br>
-                                  <select class="form-control selectpicker" multiple>
-                                      <option ng-repeat="u in orgUsers" value="u._id">{{u.username}}
-                                      </option>
+                                <label>Name</label>
+                                <input class="form-control" type="text" name="pmName" id="pmName" ng-model="pmName">
+
+                                <label>Email</label>
+                                <input class="form-control" type="text" name="pmEmail" id="pmEmail" ng-model="pmEmail">
+
+                                <label>Select Member</label><br>
+                                  <select class="form-control selectpicker" multiple ng-model="userId">
+                                      <option ng-repeat="u in orgUsers" value="u._id">{{u.username}}</option>
                                   </select>
-                                  
+
                               </div>
                               <div class="row">
-                                  <label>Start Date</label> 
-                                  <input type="date" class="form-control" > 
-                              </div>
-                              <br>
-                              <div class="row">
-                                  <label>End Date</label> 
-                                  <input type="date" class="form-control"> 
-                              </div>
-                              <br>
-                             
-      
-                              <div class="row">
-                                  <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="btn btn-success" value="Create Project">
+                                  <button class="btn btn-success" ng-click="createProjectManager(pmName,pmEmail,userId)">Create </button>
                               </div>
                           </form>
                       </div>
@@ -214,22 +186,7 @@
                         <br>
                         <p style="color:red" ng-show="userRegisterForm.password.$invalid && userRegisterForm.password.$touched">Please provide password</p>
   
-                        <label>Team</label>
-                        <select name="teamname" id="teamname" class="form-control" placeholder="Team" ng-model="tmname" required>
-                          
-                          <option value="" disabled selected>Select team</option>
-                          <option value="Quality Assurance">Quality Assurance</option>
-                          <option value="Human Resource">Human Resource(HR)</option>
-                          <option value="Support">Support</option>
-                          <option value="Implementation">Implementation</option>
-                          <option value="Sales">Sales</option>
-                          <option value="Staff">Staff</option>
-                          <option value="Accounts">Accounts</option>
-                          <option value="Tech">Tech</option>
-                          <option value="Management">Management</option>
-                          <option value="Design">Design</option>
-          
-                        </select>
+                    
                         
                         <p style="color:red" ng-show="userRegisterForm.teamname.$invalid && userRegisterForm.teamname.$touched">Team Name is required</p>
                         <br>
@@ -238,7 +195,7 @@
                         <br>
                     </div>
                     <!-- <div>{{uname}},{{em}},{{pwd}},{{tmname}}</div> -->
-                    <button type="submit" class=" btn btn-success" ng-click="createUser(uname,em,pwd,tmname,orgname)" >Register</button>
+                    <button type="submit" class=" btn btn-success" ng-click="createUser(uname,em,pwd,orgname)" >Register</button>
                       <!-- ng-disabled="userRegisterForm.email.$invalid || userRegisterForm.password.$invalid"  -->
                     <div class="alert alert-danger" role="alert" ng-show="invalidAlert" >Invalid Credentials!</div>
                     </form>

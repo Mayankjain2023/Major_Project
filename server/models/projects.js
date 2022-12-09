@@ -1,12 +1,19 @@
 var mongoose=require('mongoose');
 var Schema=mongoose.Schema;
 
+var now=new Date();
 var projectSchema=new Schema({
     name:String,
     description:String,
     category:String,
-    createAt:String,
-    updateAt:String,
+    createAt:{
+      type:String,
+      default:now.toISOString()
+    },
+    updateAt:{
+      type:String,
+            default:now.toISOString()
+    },
 
     projectManager:{
         username: {
@@ -14,6 +21,9 @@ var projectSchema=new Schema({
           },
           email: {
             type: String,required: false
+          },
+          userId:{
+            type: mongoose.Schema.Types.ObjectId
           }
         //pm of that project
     },
@@ -45,9 +55,7 @@ var projectSchema=new Schema({
               }
         
     }]
-},
-{
-    collection:"projects"
 })
 
-module.exports=mongoose.model("projects",projectSchema);
+var projects=mongoose.model("projects",projectSchema);
+module.exports=projects;

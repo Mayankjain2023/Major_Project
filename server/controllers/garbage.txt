@@ -1,0 +1,32 @@
+// register:function(req,res){
+
+    //     var user=new User();
+    //     user.user_name=req.body.user_name;
+    //     user.email=req.body.email;
+    //     user.password=req.body.password;
+  
+    //     bcrypt.genSalt(10, function(err, salt){
+    //         bcrypt.hash(user.password, salt, function(err, hash){
+    //           if (err) 
+    //           {
+    //             res.status(500).json({status:'error',message:'Bcrypt Error:'+err,token:''});
+    //             return;
+    //           }
+
+    //           user.password = hash;
+
+    //           user.save(function(err){
+    //             if(err){
+    //                 res.status(500).json({status:'error',message:'Database Error:'+err,token:''});
+    //             }else{
+    //                 var payload={email:user.email,id:user.id};
+    //                 var secret="SECRET";
+    //                 var token=jwt.sign(payload,secret,{expiresIn:'1d'});
+    //                 res.status(200).json({status:'success',message:'SignUp successful',token:"Bearer "+token});
+    //             }
+    //             });
+    //         });
+    //     });
+
+        
+    // },

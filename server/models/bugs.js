@@ -44,4 +44,4 @@ var bugSchema=new Schema({
         collection:"bugs"
     });
 
-module.exports=mongoose.model('bugs',issueSchema);    
+module.exports=mongoose.model('bugs',bugSchema);    

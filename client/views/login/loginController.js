@@ -13,6 +13,7 @@ app.controller("loginController",function($scope,$http,$location){
     },function myError(response){
         console.log(response);
     });
+    
     $scope.login=function(){
         var email=$scope.email;
         var password=$scope.password;
