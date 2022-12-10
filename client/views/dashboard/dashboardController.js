@@ -1,12 +1,13 @@
 
 app.controller("dashboardController",function(user,$state,$http,$rootScope,$scope,$location,$uibModal,SweetAlert){
     $scope.isSuperAdmin=user.isSuperAdmin;
+    $scope.isProjectManager=user.isProjectManager;
     $scope.ownername=user.username;
     $scope.isAdmin=user.isAdmin;
-    $scope.isMemer=user.isMember
+    $scope.isMember=user.isMember
     $scope.role=user.isSuperAdmin;
     $scope.useremail=user.email;
-    $scope.organizationName=user.orgname;
+    $rootScope.organizationName=user.orgname;
     $rootScope.profileName=user.username;
     $rootScope.profileEmail=user.email;
     $rootScope.profileTeam=user.team;
@@ -18,29 +19,6 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
         $location.path("/login");
     }
 
-
-
-    // $scope.createOrg=function(orgName,adminName,adminEmail,adminPassword){
-    //     var username=adminName;
-    //     var orgname = orgName;
-    //     var email=adminEmail;
-    //     var password=adminPassword;
-    //     $scope.passAlert=false;
-        
-    //     console.log(username+" "+email+" "+ password);
-    //     $http({
-    //         method:"POST",
-    //         url:"http://localhost:5500/createOrg",
-    //         data:{'username':username,'orgname': orgname,'email':email,'password':password}
-    //     })
-    //     .then(function mysuccess(response){
-    //         SweetAlert.swal("Organization added successfully");
-    //         $state.reload();
-    //         console.log(response);
-    //     },function myError(response){
-    //         console.log(response);
-    //     });
-    // }
     $scope.closeAlert=function(){
         $scope.passAlert=false;
     }
@@ -96,6 +74,127 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
         })
     }
 
+    //creating Project
+
+    $scope.createProject=function(projectName,projectDescription,projectTeam,startDate,deadline){
+
+        var projectName=projectName;
+        var projectDescription=projectDescription;
+        // var projectCategory=projectCategory;
+        var projectOrgname=user.orgname;
+        var projectStartDate=startDate;
+        var projectDeadline=deadline;
+        var projectManager={
+
+            username:user.username,
+            email:user.email,
+            userId:user._id
+
+        }
+        var projectTeam=projectTeam;
+        
+
+        $http({
+            method:'POST',
+            url:"http://localhost:5500/createProject",
+            data:{
+                "projectName":projectName,
+                "projectDescription":projectDescription,
+                "projectStartDate":projectStartDate,
+                "deadline":projectDeadline,
+                "projectOrgname":projectOrgname,
+                "projectManager":{
+                    "username":projectManager.username,
+                    "email":projectManager.email,
+                    "userId":projectManager.userId
+                },
+                "projectTeam":projectTeam
+            }
+        }).then(function mysuccess(response){
+            $state.reload();
+            console.log(response)
+        },function myError(response){
+            console.log(response);
+    })
+}   
+    //getting the projects
+
+    $scope.showProjects=function(){
+        $http({
+            method:'GET',
+            url:"http://localhost:5500/showProjects",
+            headers:{
+                'Content-Type':'application/json'
+            }
+        }).then(function success(response){
+                var projects=response.data.docs;
+                console.log(projects);
+                var OrgProjects=[];
+                for(var i=0;i<projects.length;i++){
+                    if(projects[i].orgname==user.orgname){
+                        OrgProjects.push(projects[i]);
+                    }
+                }
+
+                $scope.projects=OrgProjects;
+
+               
+                console.log(user._id);
+                var pmProjects=[];
+                for(var i=0;i<OrgProjects.length;i++){
+                    if(OrgProjects[i].projectManager.userId==user._id){
+                        pmProjects.push(OrgProjects[i]);
+                    }
+                }
+                $scope.pmProjects=pmProjects;
+                console.log(OrgProjects);
+                console.log(pmProjects);
+            },
+            function myError(response){
+                console.log(response);
+        })
+}
+
+    //creating bugs
+
+    $scope.reportBug=function(){
+        var orgname=user.orgname;
+        var projectName=projectName;
+        var title=bugTitle;
+        var status=bugStatus;
+        var listPosition=bugListPosition;
+        var description=bugDescription;
+        var estimate=bugEstimate;
+        var timeSpent=bugTimeSpent;
+        var timeRemaining=bugTimeRemaining;
+
+        $http({
+            method:"POST",
+            url:"http://localhost:5500/reportBug",
+            data:{
+                "orgname":orgname,
+                "projectName":projectName,
+                "title":title,
+                "status":status,
+                "listPosition":listPosition,
+                "description":description,
+                "estimate":estimate,
+                "timeSpent":timeSpent,
+                "timeRemaining":timeRemaining
+            }
+        }).then( function mysuccess(response){
+            console.log(response);
+        },function myError(response){
+            console.log(response);
+        })
+
+    }
+
+
+
+
+//creating organization
+
 
     $scope.getOrg=function(){
             $http({
@@ -139,9 +238,6 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
                         organizationUsers.push(org[len].users);
                     }
                     
-                    
-
-                   
                 }
                 console.log(organizationUsers[0]);
 
@@ -152,19 +248,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
                 console.log(userArr);
                 // $scope.orgUsers=organizationUsers[0];
                 $scope.orgUsers=userArr;
-
-                // for(var i=0;i<organizationUsers.length;i++){
-                //     userArr.push("Username"=organizationUsers[i].username)
-                // }
-                // console.log(userArr);
-
-
-               
-
-
-                
-            
-        },function myError(response){
+            },function myError(response){
                 console.log(response);
         })
 }

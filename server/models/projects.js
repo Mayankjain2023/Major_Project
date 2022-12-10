@@ -3,16 +3,24 @@ var Schema=mongoose.Schema;
 
 var now=new Date();
 var projectSchema=new Schema({
+
     name:String,
     description:String,
     category:String,
+    orgname:String,
+    startDate:{
+      type:String
+    },
     createAt:{
       type:String,
       default:now.toISOString()
     },
+    deadline:{
+      type:String
+    },
     updateAt:{
       type:String,
-            default:now.toISOString()
+      default:now.toISOString()
     },
 
     projectManager:{
@@ -37,8 +45,14 @@ var projectSchema=new Schema({
             estimate:Number,
             timeSpent:Number,
             timeRemainingl:Number,
-            createdAt:String,
-            updateAt:String,
+            createdAt:{
+              type:String,
+              default:now.toISOString()
+            },
+            updateAt:{
+              type:String,
+              default:now.toISOString()
+            },
 
         //
     }],
@@ -47,10 +61,7 @@ var projectSchema=new Schema({
             username: {
                 type: String,required: false
               },
-              email: {
-                type: String,required: false
-              },
-              teamname:{
+              email:{
                 type:String,required:false
               }
         

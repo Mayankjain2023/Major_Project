@@ -19,7 +19,7 @@ var authenticate={
         });
 
     },
-    
+
     createOrg:function(req,res){
         var org=new Org();
         console.log(req.body);
@@ -99,6 +99,7 @@ var authenticate={
             var user=new User();
                 user.username=req.body.username;
                 user.email=req.body.email;
+                user.orgname=req.body.orgname;
                 user.password=req.body.password;
                 user.team=req.body.teamname;
                 user.isMember='true';

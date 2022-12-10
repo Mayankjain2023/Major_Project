@@ -1,8 +1,10 @@
 var mongoose=require('mongoose');
-
 var Schema=mongoose.Schema;
-var bugSchema=new Schema({
 
+var now=new Date();
+var bugSchema=new Schema({
+    orgname:String,
+    projectName:String,
     title:String,
     status:String,
     priority:String,
@@ -11,24 +13,28 @@ var bugSchema=new Schema({
     estimate:Number,
     timeSpent:Number,
     timeRemainingl:Number,
-    createdAt:String,
-    updateAt:String,
-
-    reporterId:{
-            //user who is reporting the issue
-            
+    createdAt:{
+      type:String,
+      default:now.toISOString()
+    },
+    updateAt:{
+      type:String,
+      default:now.toISOString()
     },
 
-    userIds:[{
+    reporterId:{
+            username:String,
+            email:String,
+            type:mongoose.Schema.Types.ObjectId
+    },
+
+    users:[{
 
         username: {
             type: String,required: true
           },
           email: {
             type: String,required: false
-          },
-          teamname:{
-            type:String,required:false
           }
 
         //all users assigned to that issue
@@ -36,12 +42,17 @@ var bugSchema=new Schema({
     comments:[{
         //comments on that issue
         body:String,
-        createdAt:String,
-        updatedAt:String,
+        createdAt:{
+          type:String,
+          default:now.toISOString()
+        },
+        updatedAt:{
+          type:String,
+          default:now.toISOString()
+        },
     }],
-},
-    {
-        collection:"bugs"
-    });
+});
 
-module.exports=mongoose.model('bugs',bugSchema);    
+var bugs=mongoose.model('bugs',bugSchema);    
+
+module.exports=bugs;

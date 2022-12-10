@@ -32,6 +32,10 @@ var UserSchema = new mongoose.Schema({
   isMember:{
     type:Boolean,
     default:false
+  },
+  isProjectManager:{
+    type:Boolean,
+    default:false
   }
 // roles:['superAdmin']
 

@@ -16,12 +16,14 @@
   }
 
 </style>
-<body>
+<body ng-controller="dashboardController.js">
+    showProjects
     <table>
         <tr>
           <th>Project Name</th>
           <th>Start Date</th>
           <th>Deadline</th>
+          <th>Actions</th>
         </tr>
         <tr ng-repeat="project in projects">
           <td>{{project.project_name}}</td>

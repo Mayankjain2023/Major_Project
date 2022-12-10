@@ -13,7 +13,7 @@
                   <a class="nav-link" href="#!dashboard"> Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="">Projects</a>
+                  <a class="nav-link" href=""></a>
                 </li>
                 <li class="nav-item active">
                   <a class="nav-link" href=""></a>
@@ -36,10 +36,8 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav">
         <li class="nav-item">
-             <button type="submit" class="btn btn-success" ng-if="role==true" ng-model="role" ng-click="createOrgForm()" > Create </button>
         </li>
         <li class="nav-item">
-              <button type="submit" class="btn btn-success " ng-if="isAdmin" ng-click="addUserForm()" ng-model="isAdmin" > Add Members</button>
         </li>
        
       </ul>
@@ -69,10 +67,56 @@
       <uib-tabset active="activePill" type="pills" justified="true">
         <uib-tab index="0" heading="Project">
 
+          <div style="margin-top:20px ;" >
+            <div class="row">
+                <div class="col">
+                  <div class="card" style="width:100%; height: auto;">
+                      <div class="card-body">
+                        <h1 class="card-title" style="text-align:center;">Project Name</h1>
+                        <div class="">
+                          <p>Project Description</p>
+                        </div>
+                        <div class="card-footer">
+                          <button class="btn btn-primary" ng-click="">View Details</button>
+                          <button class="btn btn-warning" > Report Bug</button>
+                        </div>
+                            
+                      </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+
+
+        </uib-tab>
+        <uib-tab index="1" heading="Bugs">
+          <div class="panel panel-primary	" style="margin-top: 30px;">
+            <div class="panel-heading">Projects</div>
+              <div class="panel-body">
+                <div>
+                  <table>
+                    <tr>
+                      <th>To do</th>
+                      <th>In Progress</th>
+                      <th>Completed</th>
+                    </tr>
+                    <tr ng-repeat="project in projects">
+                      <td>{{bugtodo.name}}</td>
+                      <td>{{buginProgress.name}}</td>
+                      <td>{{bugCompleted.name}}</td>
+                      <td>
+                          <button class="btn btn-success">View Status</button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
         </uib-tab>
           
      
-          <uib-tab index="1" heading="Bugs">
+          <uib-tab index="2" heading="Report Bug">
               <div class="container-fluid" ng-controller=""> 
                 <div class="panel">
                   <div class="panel-body">
@@ -153,10 +197,13 @@
                 </div>
           </div>
         </uib-tab>
-          
-          <uib-tab index="2" heading="Comments"></uib-tab>
+        
     </div>      
 </body>
+
+
+
+
 
 
 <!-- m
