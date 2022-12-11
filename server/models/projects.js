@@ -56,16 +56,20 @@ var projectSchema=new Schema({
 
         //
     }],
-    users:[
+    users:
         {
             username: {
                 type: String,required: false
               },
-              email:{
-                type:String,required:false
+            // email:{
+            //   type:String
+            // }  
+              userId:{
+                type:mongoose.Schema.Types.ObjectId
               }
+
         
-    }]
+    }
 })
 
 var projects=mongoose.model("projects",projectSchema);

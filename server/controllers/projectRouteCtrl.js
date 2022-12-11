@@ -53,6 +53,8 @@ var project={
 
     createProject:function(req,res){
         console.log(req.body);
+
+
         
 
         var project=new projects();
@@ -65,6 +67,8 @@ var project={
         project.projectManager=req.body.projectManager;
         project.bugs=req.body.bugs;
         project.users=req.body.users;
+      
+        
         console.log(project);
         
 
@@ -91,7 +95,7 @@ var project={
                 return res.status(401).json({status:'error',message:'Could not find projects'})
             }
             else{
-                console.log(docs);
+                // console.log(docs);
                 return res.status(200).json({status:"success",message:"Success",docs:docs})
             }
 
@@ -102,17 +106,21 @@ var project={
         //reporting the bug
     reportBug:function(req,res){
         console.log(req.body);
-
+        
+       
         var bug=new bugs();
+
         bug.title=req.body.title;
         bug.orgname=req.body.orgname;
-        bug.projectName=req.body.projectName;
+        bug.projectId=req.body.projectID;
         bug.status=req.body.status;
+        bug.priority=req.body.priority;
         bug.listPosition=req.body.listPosition;
         bug.description=req.body.description;
         bug.estimate=req.body.estimate;
-        bug.timeSpent=req.body.timeSpent;
-        bug.timeRemaining=req.body.timeRemaining;
+        // bug.timeSpent=req.body.timeSpent;
+        // bug.timeRemaining=req.body.timeRemaining;
+        bug.reporterId=req.body.reporterId;
 
         console.log(bug);
         bug.save(function(err){
@@ -120,7 +128,27 @@ var project={
             {
                 return res.status(401).json({status:'error',message:"failed to report the bug"});
             }else{
+                
+                projects.findOne({_id:req.body.projectID},function(err,doc){
+                    if(err){
+                        console.log(err)
+                    }else{
+                        doc.bugs.push(bug);
+                        doc.save(function(err){
+                            if(err){
+                                console.log(err)
+                            }else{
+                                console.log(doc)
+                            }
+                        })
+                        
+                    }
+                })
+         
+
                 return res.status(200).json({status:'success',message:'bug reported sucessfully'});
+
+                
             }
         })
 

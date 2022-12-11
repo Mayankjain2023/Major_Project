@@ -1,3 +1,22 @@
+<style>
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+    td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+    tr:nth-child(even) {
+    background-color: #d2e5fa;
+  }
+</style>
+
+
 <body ng-controller="dashboardController.js">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
@@ -63,51 +82,60 @@
     </nav>
 
 
-    <div class="container-fluid">
+    <div class="container-fluid" ng-init="showProjects()">
       <uib-tabset active="activePill" type="pills" justified="true">
-        <uib-tab index="0" heading="Project">
+        <uib-tab index="0" heading="Project"    >
 
           <div style="margin-top:20px ;" >
             <div class="row">
                 <div class="col">
                   <div class="card" style="width:100%; height: auto;">
                       <div class="card-body">
-                        <h1 class="card-title" style="text-align:center;">Project Name</h1>
-                        <div class="">
-                          <p>Project Description</p>
+                        <h1 class="card-title" style="text-align:center;">{{userProjectName}}</h1>
+                       
+                        <div uib-collapse="isCollapsed">
+                          <div class="well well-lg">
+                            <h2 class="card-text">Description: {{userProjectDescription}}</h2>
+                            <h3>Project Manager: {{userProjectManager}}</h3>
+                            <p>StartDate : {{userProjectStartDate}} </p>
+                            <p>Deadline: {{userProjectDeadline}}</p>
+
+                          </div>
+                          <div>Number of bugs: {{bugsLength}}</div>
                         </div>
-                        <div class="card-footer">
-                          <button class="btn btn-primary" ng-click="">View Details</button>
-                          <button class="btn btn-warning" > Report Bug</button>
-                        </div>
+
                             
+                      </div>
+                      <div class="card-footer">
+                        <button class="btn btn-info btn-lg" ng-click="isCollapsed = !isCollapsed" ><span class="glyphicon glyphicon-list"></span> View Details</button>
+                        <!-- <button class="btn btn-warning" > Report Bug</button> -->
                       </div>
                   </div>
                 </div>
             </div>
           </div>
-
-
-
         </uib-tab>
-        <uib-tab index="1" heading="Bugs">
+      <uib-tab index="1" heading="Bugs">
           <div class="panel panel-primary	" style="margin-top: 30px;">
-            <div class="panel-heading">Projects</div>
+            <div class="panel-heading">Bugs Status</div>
               <div class="panel-body">
+                
                 <div>
-                  <table>
-                    <tr>
-                      <th>To do</th>
-                      <th>In Progress</th>
-                      <th>Completed</th>
-                    </tr>
-                    <tr ng-repeat="project in projects">
-                      <td>{{bugtodo.name}}</td>
-                      <td>{{buginProgress.name}}</td>
-                      <td>{{bugCompleted.name}}</td>
-                      <td>
-                          <button class="btn btn-success">View Status</button>
-                      </td>
+                  <table class="table">
+                    <thead class="thead">
+                      <tr>
+                        <th class="table-success">#</th>
+                        <th class="table-info">Title</th>
+                        <th class="table-danger">Priority</th>
+                        <th class="table-warning">Status</th>
+                      </tr>
+                    </thead>
+                    <tr ng-repeat="bug in bugs">
+                      <td>{{bug.listPosition}}</td>
+                      <td>{{bug.title}}</td>
+                      <td>{{bug.priority}}</td>
+                      <td>{{bug.status}}</td>
+                      
                     </tr>
                   </table>
                 </div>
@@ -116,55 +144,54 @@
         </uib-tab>
           
      
-          <uib-tab index="2" heading="Report Bug">
-              <div class="container-fluid" ng-controller=""> 
+        <uib-tab index="2" heading="Report Bug" >
+              <div class="container-fluid"> 
                 <div class="panel">
                   <div class="panel-body">
                     <div class="row">
                       <div class="col-sm-6 col-md-6 col-md-offset-3">
-                        <form method="post" ng-submit="">
-                            <div class="row">
-                                      <label>Project Name</label>
-                                      <input  type="text" class="form-control" ng-model=""> 
+                        <form method="post">
+                                  <div class="row">
+                                    <label>Project Name</label>
+                                      <select class="form-control selectpicker" ng-model="projectName">
+                                        <option ng-repeat="project in userProject" value={{project._id}}>{{userProjectName}}
+                                        </option>
+                                    </select>
                                   </div>
                                   <div class="row">
+                                      <label>Bug Title</label>
+                                      <input type="text" class="form-control" ng-model="bugTitle">
+                                  </div>
+
+                                  <div class="row">
+                                    <label>List Posistion</label>
+                                    <input type="number" class="form-control" ng-model="bugListPosition">
+                                </div>
+                                <div class="row">
+                                  <label>Estimate in Hours</label>
+                                  <input type="number" class="form-control" ng-model="bugEstimate">
+                                </div>
+                                  <div class="row">
                                       <label> Descripition </label>
-                                      <br><textarea name="description" class="form-control" ng-model=""> 
+                                      <br><textarea name="description" class="form-control" ng-model="bugDescription"> 
                                       </textarea>
                                   </div>
-                                  <!-- <div class="row">
-                                      <label>Assignee</label><br>
-                                      <select class="form-control selectpicker" ng-model="">
-
-                                          <option value="" disabled selected>Add assignees</option>
-                                          <option ng-repeat="u in users" value="{{u._id}}">{{u.first_name}}
-                                          </option>
-                                      </select>
-                                  </div> -->
+                                 
                                   <br>
                                   <div class="row">
                                       <label>Priority</label><br>
-                                      <select class="form-control selectpicker" ng-model="issue.issueData.priority">
-                                          <option value="BLOCKER">Blocker</option>
+                                      <select class="form-control selectpicker" ng-model="bugPriority">
+                                      
                                           <option value="HIGH">High</option>
                                           <option value="MEDIUM">Medium</option>
                                           <option value="LOW">Low</option>
                                       </select>                 
                                   </div>
-                                  <!-- <br> -->
-                                  <!-- <div class="row">
-                                      <label>Type</label><br>
-                                      <select class="form-control selectpicker" ng-model="issue.issueData.type">
-                                          <option value="TASK">Task</option>
-                                          <option value="BUG">Bug</option>
-                                          <option value="ENHANCEMENT">Enhancement</option>
-                                      </select>
-          
-                                  </div> -->
+                    
                                   <br>
                                   <div class="row">
                                       <label>Status</label>
-                                      <select class="form-control selectpicker" ng-model="issue.issueData.status">
+                                      <select class="form-control selectpicker" ng-model="bugStatus">
                                           <option value="NOT-STARTED">Not Started</option>
                                           <option value="WORKING">Working</option>
                                           <option value="TESTING">Testing</option>
@@ -174,20 +201,11 @@
           
                                   </div>
                                   <br>
-                                  
-                                  <div class="row">
-                                      <label>Start Date</label> 
-                                      <input type="date" class="form-control" ng-model="issue.issueData.start_date"> 
-                                  </div>
-
-                                  <br>
-                                  <div class="row">
-                                      <label>End Date</label> 
-                                      <input type="date" class="form-control" ng-model="issue.issueData.end_date"> 
-                                  </div>
-                                  <br>
+                      
                                   <div class="row">         
-                                      <input type="submit" class="btn btn-warning" id="login-submit" tabindex="2" class="btn btn-primary" value="Report"></a>               
+                                      <button type="submit" class="btn btn-warning"
+                                        ng-click="reportBug(projectName,bugTitle,bugDescription,bugListPosition,bugEstimate,bugPriority,bugStatus)" 
+                                      ><span class="glyphicon glyphicon-plus"></span> Report</button>               
                                   </div>
 
                               </form>
@@ -200,6 +218,9 @@
         
     </div>      
 </body>
+
+
+
 
 
 

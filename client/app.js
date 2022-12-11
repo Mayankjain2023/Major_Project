@@ -28,11 +28,11 @@ app.config(function($stateProvider,$urlRouterProvider){
                     templateUrl:"views/register/register.html",
                     url:"/register"
                 })
-                .state("updatePassword",{
-                    templateUrl:"views/login/updatePwd.html",
-                    controller:"updatepwdCtrl",
-                    url:"/updatePassword"
-                })
+                // .state("updatePassword",{
+                //     templateUrl:"views/login/updatePwd.html",
+                //     controller:"updatepwdCtrl",
+                //     url:"/updatePassword"
+                // })
                 .state("home",{
                     controller:"homeController",
                     templateUrl:"views/home/home.html",

@@ -76,7 +76,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
 
     //creating Project
 
-    $scope.createProject=function(projectName,projectDescription,projectTeam,startDate,deadline){
+    $scope.createProject=function(projectName,projectDescription,projectUserName,projectUserId,startDate,deadline){
 
         var projectName=projectName;
         var projectDescription=projectDescription;
@@ -91,7 +91,20 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
             userId:user._id
 
         }
-        var projectTeam=projectTeam;
+        console.log(projectUserName);
+        console.log(projectUserId);
+
+        //  var projectTeam=[]
+
+            
+            // projectUserName:projectUserName,
+            // projectUserIdprojectUserId
+     
+        //  console.log(projectTeam);
+        var projectUserName=projectUserName;
+        var projectUserId=projectUserId;
+    
+        
         
 
         $http({
@@ -108,7 +121,14 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
                     "email":projectManager.email,
                     "userId":projectManager.userId
                 },
-                "projectTeam":projectTeam
+                
+                "users":{
+                    "username":projectUserName,
+                    "userId":projectUserId
+                }
+                        
+                 
+
             }
         }).then(function mysuccess(response){
             $state.reload();
@@ -128,6 +148,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
             }
         }).then(function success(response){
                 var projects=response.data.docs;
+
                 console.log(projects);
                 var OrgProjects=[];
                 for(var i=0;i<projects.length;i++){
@@ -136,6 +157,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
                     }
                 }
 
+                //all projects in the organization
                 $scope.projects=OrgProjects;
 
                
@@ -146,9 +168,31 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
                         pmProjects.push(OrgProjects[i]);
                     }
                 }
+                //projects belonging to particular project Manager
                 $scope.pmProjects=pmProjects;
                 console.log(OrgProjects);
                 console.log(pmProjects);
+
+                var userProject=[];
+                for(var i=0;i<OrgProjects.length;i++){
+                    if(OrgProjects[i].users.username==user.username){
+                        userProject.push(OrgProjects[i]);
+                    }
+                }
+                
+                console.log(userProject);
+
+                $scope.userProject=userProject;
+
+                $scope.userProjectName=userProject[0].name;
+                $scope.userProjectDescription=userProject[0].description;
+                $scope.userProjectManager=userProject[0].projectManager.username;
+                $scope.userProjectStartDate=userProject[0].startDate;
+                $scope.userProjectDeadline=userProject[0].deadline;
+
+               $scope.bugs=userProject[0].bugs;
+               $scope.bugsLength=userProject[0].bugs.length;
+               console.log(userProject[0].bugs);
             },
             function myError(response){
                 console.log(response);
@@ -157,32 +201,48 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
 
     //creating bugs
 
-    $scope.reportBug=function(){
+    $scope.reportBug=function(projectName,bugTitle,bugDescription,bugListPosition
+        ,bugEstimate,bugPriority,bugStatus){
+
         var orgname=user.orgname;
-        var projectName=projectName;
+        var projectID=projectName;
         var title=bugTitle;
         var status=bugStatus;
+        var priority=bugPriority;
         var listPosition=bugListPosition;
         var description=bugDescription;
         var estimate=bugEstimate;
-        var timeSpent=bugTimeSpent;
-        var timeRemaining=bugTimeRemaining;
+        // var timeSpent=bugTimeSpent;
+        // var timeRemaining=bugTimeRemaining;
+        var reporterId={
+            username:user.username,
+            email:user.email,
+            _id:user._id
+        }
 
         $http({
             method:"POST",
             url:"http://localhost:5500/reportBug",
             data:{
                 "orgname":orgname,
-                "projectName":projectName,
+                "projectID":projectID,
                 "title":title,
                 "status":status,
+                "priority":priority,
                 "listPosition":listPosition,
                 "description":description,
                 "estimate":estimate,
-                "timeSpent":timeSpent,
-                "timeRemaining":timeRemaining
+                // "timeSpent":timeSpent,
+                // "timeRemaining":timeRemaining,
+                "reporterId":{
+                    "username":reporterId.username,
+                    "email":reporterId.email,
+                    "_id":reporterId._id
+                }
             }
         }).then( function mysuccess(response){
+            SweetAlert.swal('Bug reported Successfully')
+            $state.reload();
             console.log(response);
         },function myError(response){
             console.log(response);

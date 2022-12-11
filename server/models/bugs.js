@@ -4,7 +4,7 @@ var Schema=mongoose.Schema;
 var now=new Date();
 var bugSchema=new Schema({
     orgname:String,
-    projectName:String,
+    projectId:mongoose.Schema.Types.ObjectId,
     title:String,
     status:String,
     priority:String,
