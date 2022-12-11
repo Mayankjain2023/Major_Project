@@ -1,5 +1,7 @@
 var User = require("../models/UserModel");
 var Org=require("../models/OrgModel");
+var async=require("async");
+
 var bcrypt=require("bcryptjs");
 var jwt=require('jsonwebtoken');
 
@@ -21,8 +23,9 @@ var authenticate={
     },
 
     createOrg:function(req,res){
-        var org=new Org();
         console.log(req.body);
+        var org=new Org();
+       
 
         org.orgname=req.body.orgname;
 
@@ -33,6 +36,7 @@ var authenticate={
         };
 
         org.users.push(user);
+        console.log(org);
 
         var userAdmin=new User();
         userAdmin.username=req.body.username;
@@ -41,6 +45,7 @@ var authenticate={
         userAdmin.orgname=req.body.orgname;
         userAdmin.isAdmin='true';
         userAdmin.isMember='false';
+        userAdmin.isProjectManager='false';
 
         async.waterfall([function(callback){
             org.save(function(err){
@@ -79,6 +84,7 @@ var authenticate={
         })
         
     },
+
     createUser:function(req,res){
         var user={
             username:req.body.username,
@@ -101,12 +107,8 @@ var authenticate={
                 user.email=req.body.email;
                 user.orgname=req.body.orgname;
                 user.password=req.body.password;
-                user.team=req.body.teamname;
+                // user.team=req.body.teamname;
                 user.isMember='true';
-                
-
-
-     
   
         bcrypt.genSalt(10, function(err, salt){
             bcrypt.hash(user.password, salt, function(err, hash){

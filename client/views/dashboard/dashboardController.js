@@ -23,13 +23,13 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
         $scope.passAlert=false;
     }
 
-    $scope.createUser=function(uname,em,pwd,tmname,orgname){
+    $scope.createUser=function(uname,em,pwd,orgname){
         console.log(uname);
 
         var name=uname;
         var email=em;
         var password=pwd;
-        var orgname=orgname;
+        var orgname=user.orgname;
        
         $scope.passAlert=false;
         
@@ -53,6 +53,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
     }
 
     $scope.createProjectManager=function(pmName,pmEmail,userId){
+        console.log(userId);
 
         var pmName=pmName;
         var pmEmail=pmEmail;
@@ -131,6 +132,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
 
             }
         }).then(function mysuccess(response){
+            SweetAlert.swal('Project Created Successfully')
             $state.reload();
             console.log(response)
         },function myError(response){

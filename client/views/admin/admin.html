@@ -174,7 +174,7 @@
 
                                 <label>Select Member</label><br>
                                   <select class="form-control selectpicker" ng-model="userId">
-                                      <option ng-repeat="u in orgUsers" value="u._id">{{u.username}}</option>
+                                      <option ng-repeat="u in orgUsers" value={{u._id}}>{{u.username}}</option>
                                   </select>
 
                               </div>

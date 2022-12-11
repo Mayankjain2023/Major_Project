@@ -90,24 +90,26 @@
             <div class="row">
                 <div class="col">
                   <div class="card" style="width:100%; height: auto;">
-                      <div class="card-body">
+                    <div class="card bg-dark text-light">
+                      <div class="card-body" >
                         <h1 class="card-title" style="text-align:center;">{{userProjectName}}</h1>
                        
                         <div uib-collapse="isCollapsed">
-                          <div class="well well-lg">
+                          <div class="well well-lg text-dark">
                             <h2 class="card-text">Description: {{userProjectDescription}}</h2>
                             <h3>Project Manager: {{userProjectManager}}</h3>
                             <p>StartDate : {{userProjectStartDate}} </p>
                             <p>Deadline: {{userProjectDeadline}}</p>
-
-                          </div>
-                          <div>Number of bugs: {{bugsLength}}</div>
+                            <div>Number of bugs: {{bugsLength}}</div>
                         </div>
 
+                          </div>
+                          
                             
                       </div>
+                    </div>
                       <div class="card-footer">
-                        <button class="btn btn-info btn-lg" ng-click="isCollapsed = !isCollapsed" ><span class="glyphicon glyphicon-list"></span> View Details</button>
+                        <button class="btn btn-secondary btn-lg" ng-click="isCollapsed = !isCollapsed" ><span class="glyphicon glyphicon-list"></span> View Details</button>
                         <!-- <button class="btn btn-warning" > Report Bug</button> -->
                       </div>
                   </div>
