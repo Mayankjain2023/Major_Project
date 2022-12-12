@@ -25,8 +25,6 @@ var authenticate={
     createOrg:function(req,res){
         console.log(req.body);
         var org=new Org();
-       
-
         org.orgname=req.body.orgname;
 
         var user={
@@ -38,14 +36,19 @@ var authenticate={
         org.users.push(user);
         console.log(org);
 
+
+
         var userAdmin=new User();
         userAdmin.username=req.body.username;
         userAdmin.email=req.body.email;
         userAdmin.password="Admin@123";
         userAdmin.orgname=req.body.orgname;
-        userAdmin.isAdmin='true';
-        userAdmin.isMember='false';
-        userAdmin.isProjectManager='false';
+      
+
+        userAdmin.roles.role="ADMIN";
+        userAdmin.roles.order=2;
+        userAdmin.roles.permissions=["create","write","read","delete"];
+
 
         async.waterfall([function(callback){
             org.save(function(err){
@@ -108,7 +111,11 @@ var authenticate={
                 user.orgname=req.body.orgname;
                 user.password=req.body.password;
                 // user.team=req.body.teamname;
-                user.isMember='true';
+               
+                user.roles.role="MEMBER";
+                user.roles.order=4;
+                user.roles.permissions=["read"];
+
   
         bcrypt.genSalt(10, function(err, salt){
             bcrypt.hash(user.password, salt, function(err, hash){

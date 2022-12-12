@@ -79,6 +79,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="">{{useremail}}</a>
               <!-- <a class="dropdown-item" href="" ng-click="openModal()">Profile</a> -->
+              <a class="dropdown-item" href="" ng-click="openModal()">Profile</a>
               <a class="dropdown-item" href="">Settings</a>
               <a class="dropdown-item" ng-click="logout()">Logout</a>
             </div>
@@ -97,28 +98,27 @@
           <div class="panel-heading">Members</div>
           <div class="panel-body">
             
-            <table>
+            <table >
               <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Role</th>
+                <!-- <th>Role</th> -->
                 <th>Actions</th>
                 <th>Permissions</th>
               </tr>
               <tr ng-repeat="users in orgUsers">
                 <td>{{users.username}}</td>
                 <td>{{users.email}}</td>
-                <td>{{users.role}}</td>
+                <!-- <td>{{users.role}}</td> -->
                 <td>
                   <button class="btn btn-primary">view Profile</button>
                   <button class="btn btn-danger">Remove</button>
-                 
                 </td>
                 <td>
                   <button class="btn btn-success">Make admin</button>
-                  <button class="btn btn-success">Make Project Manager</button>
+                  <!-- <button class="btn btn-success">Make Project Manager</button> -->
                   <button class="btn btn-danger" ng-if="">Remove as admin</button>
-                  <button class="btn btn-danger" ng-if="">Remove as Project Manager</button>
+                  <!-- <button class="btn btn-danger" ng-if="">Remove as Project Manager</button> -->
                 </td>
               </tr>
             </table>
@@ -167,10 +167,10 @@
 
                               <div class="row">
                                 <label>Name</label>
-                                <input class="form-control" type="text" name="pmName" id="pmName" ng-model="pmName">
+                                <input class="form-control" type="text" placeholder="Enter name" name="pmName" id="pmName" ng-model="pmName">
 
                                 <label>Email</label>
-                                <input class="form-control" type="text" name="pmEmail" id="pmEmail" ng-model="pmEmail">
+                                <input class="form-control" type="text" placeholder="Enter email" name="pmEmail" id="pmEmail" ng-model="pmEmail">
 
                                 <label>Select Member</label><br>
                                   <select class="form-control selectpicker" ng-model="userId">

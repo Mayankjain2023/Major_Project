@@ -21,22 +21,23 @@ var UserSchema = new mongoose.Schema({
     required:false
   },
  
-  isSuperAdmin:{
-    type:Boolean,
-    default:false
-  },
-  isAdmin:{
-    type:Boolean,
-    default:false
-  },
-  isMember:{
-    type:Boolean,
-    default:false
-  },
-  isProjectManager:{
-    type:Boolean,
-    default:false
-  }
+  // isSuperAdmin:{
+  //   type:Boolean,
+  //   default:false
+  // },
+  // isAdmin:{
+  //   type:Boolean,
+  //   default:false
+  // },
+  // // isMember:{
+  //   type:Boolean,
+  //   default:false
+  // },
+  // isProjectManager:{
+  //   type:Boolean,
+  //   default:false
+  // },
+
 // roles:['superAdmin']
 
 // const mapRoles={
@@ -46,17 +47,17 @@ var UserSchema = new mongoose.Schema({
 //   mapRoles[res.roles[0]]
 // }
     
-    // roles:[{
+  roles:{
 
-    //         role:{        
-    //           type:String   //superadmin
-    //         },
-    //         order:{  
-    //           type:Number    //3
-    //         },
-    //         permissions:[String]  //['create','read','write','delete']
+            role:{        
+              type:String   //superadmin //admin //projectManager //member
+            },
+            order:{  
+              type:Number    //4 //3 //2 //1
+            },
+            permissions:[String]  //['create','read','write','delete']
           
-    // }],
+  }
 
     
 

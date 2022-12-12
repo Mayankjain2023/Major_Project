@@ -1,17 +1,54 @@
 
 app.controller("dashboardController",function(user,$state,$http,$rootScope,$scope,$location,$uibModal,SweetAlert){
-    $scope.isSuperAdmin=user.isSuperAdmin;
-    $scope.isProjectManager=user.isProjectManager;
+    
+    
+    // $scope.isSuperAdmin=user.isSuperAdmin;
+    // $scope.isProjectManager=user.isProjectManager;
     $scope.ownername=user.username;
-    $scope.isAdmin=user.isAdmin;
-    $scope.isMember=user.isMember
-    $scope.role=user.isSuperAdmin;
+    // $scope.isAdmin=user.isAdmin;
+    // $scope.isMember=user.isMember;
+    // $scope.role=user.isSuperAdmin;
+
     $scope.useremail=user.email;
     $rootScope.organizationName=user.orgname;
     $rootScope.profileName=user.username;
     $rootScope.profileEmail=user.email;
     $rootScope.profileTeam=user.team;
     $rootScope.profileOrg=user.orgname;
+
+    console.log(user.roles);
+
+    var mapRole=user.roles.role;
+    var userOrder=user.roles.order;
+    var userPermissions=user.roles.permissions;
+    console.log(userPermissions);
+
+    if(mapRole=="ADMIN"){
+        $scope.isAdmin=true;
+        $rootScope.role="Admin";
+
+        $scope.order=2;
+        $scope.permissions=userPermissions;
+    }
+    else if(mapRole=="SUPERADMIN"){
+        $scope.isSuperAdmin=true;
+        $scope.order=1;
+        $scope.permissions=userPermissions;
+    }
+    else if(mapRole=="PROJECT MANAGER"){
+        $scope.isProjectManager=true;
+        $rootScope.role="Project Manager";
+
+        $scope.order=3;
+        $scope.permissions=userPermissions;
+
+    }else if(mapRole=="MEMBER"){
+        $scope.isMember=true;
+        $rootScope.role="Member";
+
+        $scope.order=4;
+        $scope.permissions=userPermissions;
+    }
 
 
     $scope.logout=function(){

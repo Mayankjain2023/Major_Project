@@ -5,13 +5,10 @@
     <div class="panel-body">
 <div class="well" id="wel">
 <div class="row">
-    <!-- <div class="col-sm-1">
-        <img clas="" src="" alt="" width="70px" height="70px"> 
-    </div> -->
-    <!-- <div class="col-sm-4" id="profile"> -->
-        <h2>Member at {{profileOrg}}
+    
+        <h2>{{role}} at {{profileOrg}}
         </h2>
-    <!-- </div> -->
+   
 </div>
 </div>
 <div class="col-sm-8">
@@ -48,39 +45,21 @@
 <div class="row">
 <hr class="col-sm-7">
 </div>
-<!-- <h5 id="preference" >Preferences
-</h5> -->
-<!-- <div id="prefer">
-    <h6>Page Size:&nbsp;50
-    </h6>
-    <h6>Email Type:&nbsp;HTML
-    </h6>
-    <h6>Language:&nbsp;Automatically detect browser settings
-    </h6>
-    <h6>Time Zone:&nbsp;(GMT+05:30)Kolkata
-    </h6>
-    <h6>My Changes:&nbsp;Do not notify me
-    </h6>
-    <h6>Keyboard Shortcut:&nbsp;Unshared
-    </h6>
-    <h6>Autowatch:&nbsp;Enabled
-    </h6>
-</div> -->
+
 <div class="row">
     <hr class="col-sm-7">
 </div>
-<div id="labs">
+<div id="labs" ng-if="role==Member">
     <h5>Status
     </h5>
     <p>Number of Bugs resolved
     <br>
         Description of project assigned
     </p> 
-    <!-- Issue detail View
-    <input type="checkbox" > -->
+   
     </div>
-    </div><!-- div panel-body -->
-</div><!-- div panel -->
+    </div>
+</div>
 
 <div class="modal-footer">
     

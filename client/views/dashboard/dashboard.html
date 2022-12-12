@@ -128,8 +128,8 @@
 
   <div ng-if="isSuperAdmin" ng-include="'views/superAdmin/superAdmin.html'"></div>
   <div ng-if="isAdmin" ng-include="'views/admin/admin.html'"></div>
-  <div ng-if="isProjectManager && isMember" ng-include="'views/projectManager/projectManager.html'"></div>
-  <div ng-if="isMember && !isProjectManager" ng-include="'views/member/member.html'"></div>
+  <div ng-if="isProjectManager" ng-include="'views/projectManager/projectManager.html'"></div>
+  <div ng-if="isMember" ng-include="'views/member/member.html'"></div>
 
 
 

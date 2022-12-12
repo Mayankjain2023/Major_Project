@@ -19,7 +19,11 @@ var project={
             if(err){
                 console.log(err)
             }else{
-                doc.isProjectManager=true;
+                // doc.isProjectManager=true;
+                console.log(doc);
+                doc.roles.role="PROJECT MANAGER";
+                doc.roles.order=3;
+                doc.roles.permissions=["create","read","write"];
                 doc.save(function(err){
                     if(err){
                         console.log(err)
@@ -30,6 +34,11 @@ var project={
                 
             }
         })
+
+        
+                
+                
+        
         
 
         var projectManager=new projectManagers();
