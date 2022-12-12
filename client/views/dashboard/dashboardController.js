@@ -1,3 +1,4 @@
+var URL="http://localhost:5500";
 
 app.controller("dashboardController",function(user,$state,$http,$rootScope,$scope,$location,$uibModal,SweetAlert){
     
@@ -45,6 +46,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
     }else if(mapRole=="MEMBER"){
         $scope.isMember=true;
         $rootScope.role="Member";
+        $rootScope.UserMember=true;
 
         $scope.order=4;
         $scope.permissions=userPermissions;
@@ -60,6 +62,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
         $scope.passAlert=false;
     }
 
+    //creating Users
     $scope.createUser=function(uname,em,pwd,orgname){
         console.log(uname);
 
@@ -73,7 +76,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
         console.log(name+" "+email+" "+ password);
         $http({
             method:"POST",
-            url:"http://localhost:5500/user/createUser",
+            url:URL+"/user/createUser",
             data:{'username':name,'email':email,'password':password,'orgname':orgname}
         })
         .then(function mysuccess(response){
@@ -88,6 +91,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
             
         });
     }
+            //creating project Manager
 
     $scope.createProjectManager=function(pmName,pmEmail,userId){
         console.log(userId);
@@ -100,7 +104,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
         console.log(pmName+"" +pmEmail+""+orgname+""+userId);
         $http({
             method:"POST",
-            url:"http://localhost:5500/createProjectManager",
+            url:URL+"/createProjectManager",
             data:{'pmName':pmName,'pmEmail':pmEmail,'orgname':orgname,'userId':userId}
         }).then( function mysuccess(response){
             SweetAlert.swal('Project Manager Created Successfully')
@@ -147,7 +151,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
 
         $http({
             method:'POST',
-            url:"http://localhost:5500/createProject",
+            url:URL+"/createProject",
             data:{
                 "projectName":projectName,
                 "projectDescription":projectDescription,
@@ -176,12 +180,13 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
             console.log(response);
     })
 }   
+
     //getting the projects
 
     $scope.showProjects=function(){
         $http({
             method:'GET',
-            url:"http://localhost:5500/showProjects",
+            url: URL+"/showProjects",
             headers:{
                 'Content-Type':'application/json'
             }
@@ -261,7 +266,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
 
         $http({
             method:"POST",
-            url:"http://localhost:5500/reportBug",
+            url:URL+"/reportBug",
             data:{
                 "orgname":orgname,
                 "projectID":projectID,
@@ -298,7 +303,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
     $scope.getOrg=function(){
             $http({
                 method:'GET',
-                url:"http://localhost:5500/getAllOrg",
+                url:URL+"/getAllOrg",
                 headers:{
                     'Content-Type':'application/json'
                 }
@@ -312,17 +317,17 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
 
                     $scope.orgNameValues=organization;
                     console.log(response);
-
-                
             },function myError(response){
                     console.log(response);
             })
     }
 
+    //getOrgMembers
+
     $scope.getOrgMembers=function(){
         $http({
             method:'GET',
-            url:"http://localhost:5500/getAllOrg",
+            url:URL+"/getAllOrg",
             headers:{
                 'Content-Type':'application/json'
             }
@@ -360,7 +365,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
     $scope.getUser=function(){
         $http({
             method:'GET',
-            url:"http://localhost:5500/user/getAllMembers",
+            url:URL+"/user/getAllMembers",
             headers:{
                 'Content-Type':'application/json'
             }
@@ -381,21 +386,9 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
         })
     }
 
-    $scope.closeAlert=function(){
-        $scope.passAlert=false;
-    }
-
-
-    $scope.toggleSidebar = function() {
-		$("#wrapper").toggleClass("active");
-		$("#menu-toggle").find('i').toggleClass('fa fa-angle-double-left').toggleClass('fa fa-angle-double-right');
-	}
-
+    //modals
 
     $scope.openModal = function () {
-
-        // $state.go('profile');
-       
 
         var modalInstance = $uibModal.open({
           ariaLabelledBy:'modal-title',
@@ -423,11 +416,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
           controller: 'modalCtrl',
           controllerAs:'$ctrl',
           size:size,
-        //   resolve: {
-        //     items: function () {
-        //       return $scope.items;
-        //     }
-        //   }
+       
         });
     
         modalInstance.result.then(function (selectedItem) {
@@ -437,10 +426,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
         });
       };
 
-      
-
-
-      $scope.openAdminModal = function (size) {
+        $scope.openAdminModal = function (size) {
 
         var modalInstance = $uibModal.open({
           ariaLabelledBy:'modal-title',
@@ -449,11 +435,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
           controller: 'modalCtrl',
           controllerAs:'$ctrl',
           size:size,
-        //   resolve: {
-        //     items: function () {
-        //       return $scope.items;
-        //     }
-        //   }
+        
         });
     
         modalInstance.result.then(function (selectedItem) {

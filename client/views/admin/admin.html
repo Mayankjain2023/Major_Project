@@ -7,7 +7,7 @@
   
   td, th {
     border: 1px solid #dddddd;
-    text-align: left;
+    text-align: center;
     padding: 8px;
   }
   
@@ -155,17 +155,19 @@
       </uib-tab>
 
 
-      <uib-tab index="2" heading="Add Project Manager">
+      <uib-tab index="2" heading="CREATE PROJECT MANAGER">
         <div class="container">
           <div class="panel panel-primary" style="margin-top: 30px;width: auto;">
-            <div class="panel-heading">Add Project Manager</div>
+            <div class="panel-heading">Create Project Manager</div>
 
               <div class="panel-body">
                   <div class="row">
                       <div class="col-sm-6 col-md-6 col-md-offset-3">
-                          <form method="post" role="form" autocomplete="off" >
+                        <div class="card">
+                          <div class="card-body">
+                            <form method="post" role="form" autocomplete="off" >
 
-                              <div class="row">
+                              <div class="form-group">
                                 <label>Name</label>
                                 <input class="form-control" type="text" placeholder="Enter name" name="pmName" id="pmName" ng-model="pmName">
 
@@ -179,10 +181,13 @@
 
                               </div>
                               <br>
-                              <div class="row">
+                              <div class="form-group">
                                   <button class="btn btn-success" ng-click="createProjectManager(pmName,pmEmail,userId)">Create </button>
                               </div>
                           </form>
+                          </div>
+                        </div>
+                    
                       </div>
                   </div>
               </div>
@@ -193,44 +198,48 @@
       
       <uib-tab index="3" heading="ADD MEMBER">
         <div class="container" style="margin-top: 30px;">
-          <div class="panel panel-primary">
+          <div class="panel panel-primary" style="width: auto;">
             <div class="panel-heading">Add Member to your Organization</div>
             <div class="panel-body">
               <div class="row">
                 
                 <div class="col-sm-6 col-md-6 col-md-offset-3"  >
-                
-                  <form  name="userRegisterForm" role="form" autocomplete="off" novalidate >
-      
-                    <div class="form-group">
-                        <label>Name of user</label>
-                        <input type="text" name="username" id="username" class="form-control" placeholder="Enter the name" ng-model="uname" required>
-                        <br>
-                        <p style="color:red" ng-show="userRegisterForm.username.$invalid && userRegisterForm.username.$touched">Name is required</p>
-                          
-                        <label >Username</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" ng-model="em" required>
-                        <br>
-                        <p style="color:red" ng-show="userRegisterForm.email.$invalid && userRegisterForm.email.$touched">Enter a valid email address</p>
-        
-                        <label >Password</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Create temporary password" ng-model="pwd" required>
-                        <br>
-                        <p style="color:red" ng-show="userRegisterForm.password.$invalid && userRegisterForm.password.$touched">Please provide password</p>
-  
+                  <div class="card">
+                    <div class="card-body">
+                      <form  name="userRegisterForm" role="form" autocomplete="off" novalidate >
                     
-                        
-                        <p style="color:red" ng-show="userRegisterForm.teamname.$invalid && userRegisterForm.teamname.$touched">Team Name is required</p>
-                        <br>
-                        <label >Organization</label>
-                        <input type="text" class="form-control" name="orgname" id="orgname" placeholder="Organization" ng-model="orgname" required>
-                        <br>
+                        <div class="form-group">
+    
+                            <label>Name of user</label>
+                            <input type="text" name="username" id="username" class="form-control" placeholder="Enter the name" ng-model="uname" required>
+                           
+                            <p style="color:red" ng-show="userRegisterForm.username.$invalid && userRegisterForm.username.$touched">Name is required</p>
+                              <br>
+                            <label >Username</label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" ng-model="em" required>
+                            <br>
+                            <p style="color:red" ng-show="userRegisterForm.email.$invalid && userRegisterForm.email.$touched">Enter a valid email address</p>
+            
+                            <label >Password</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Create temporary password" ng-model="pwd" required>
+                            <br>
+                            <p style="color:red" ng-show="userRegisterForm.password.$invalid && userRegisterForm.password.$touched">Please provide password</p>
+      
+            
+                            
+                            <label >Organization</label>
+                            <input type="text" class="form-control" name="orgname" id="orgname" placeholder="Organization" ng-model="orgname" required>
+                            <br>
+                        </div>
+                        <!-- <div>{{uname}},{{em}},{{pwd}},{{tmname}}</div> -->
+                        <button type="submit" class=" btn btn-success" ng-click="createUser(uname,em,pwd,orgname)" >Register</button>
+                          <!-- ng-disabled="userRegisterForm.email.$invalid || userRegisterForm.password.$invalid"  -->
+                        <div class="alert alert-danger" role="alert" ng-show="invalidAlert" >Invalid Credentials!</div>
+                      </form>
                     </div>
-                    <!-- <div>{{uname}},{{em}},{{pwd}},{{tmname}}</div> -->
-                    <button type="submit" class=" btn btn-success" ng-click="createUser(uname,em,pwd,orgname)" >Register</button>
-                      <!-- ng-disabled="userRegisterForm.email.$invalid || userRegisterForm.password.$invalid"  -->
-                    <div class="alert alert-danger" role="alert" ng-show="invalidAlert" >Invalid Credentials!</div>
-                    </form>
+                  </div>
+                
+                 
                 </div>
               </div>
             </div>

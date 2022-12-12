@@ -53,7 +53,7 @@ var UserSchema = new mongoose.Schema({
               type:String   //superadmin //admin //projectManager //member
             },
             order:{  
-              type:Number    //4 //3 //2 //1
+              type:Number    //1 //2 //3 //4
             },
             permissions:[String]  //['create','read','write','delete']
           
