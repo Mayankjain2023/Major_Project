@@ -1,4 +1,6 @@
-
+<style>
+  
+</style>
 
 <div class="panel panel-primary" > 
     <div class="panel-heading">Profile</div>
@@ -31,6 +33,20 @@
 <a href="">Login Account
 </a>
 </p>
+<button class="btn btn-success"  ng-click="showPermissions()">View Permissions</button>
+<br>
+<div ng-show="showUserPermissions" class="row" style="margin-top:10px ;">
+    <table class="table">
+        <tbody class="">
+            <tr scope="row" ng-repeat="permission in profilePermissions">
+                <td>{{permission}} </td>
+                <td><span>&#9989;</span></td>
+            </tr>
+        </tbody>
+    </table>
+ </div>
+    
+
 
 </div>
 <div class="row">
@@ -41,14 +57,12 @@
 <h6 id="username">Username:&nbsp; {{profileName}}
 </h6>
 <!-- <h6 id="groups">Team:&nbsp;users -->
-</h6>
-<div class="row">
-<hr class="col-sm-7">
-</div>
+ 
 
-<div class="row">
-    <hr class="col-sm-7">
-</div>
+
+
+
+
 <div id="labs" ng-if="UserMember">
     <h5>Status
     </h5>
@@ -60,6 +74,8 @@
     </div>
     </div>
 </div>
+
+
 
 <div class="modal-footer">
     

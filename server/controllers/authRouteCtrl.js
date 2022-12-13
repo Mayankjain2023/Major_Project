@@ -1,7 +1,6 @@
 var User = require("../models/UserModel");
 var Org=require("../models/OrgModel");
 var async=require("async");
-
 var bcrypt=require("bcryptjs");
 var jwt=require('jsonwebtoken');
 
@@ -24,6 +23,7 @@ var authenticate={
 
     createOrg:function(req,res){
         console.log(req.body);
+
         var org=new Org();
         org.orgname=req.body.orgname;
 
@@ -43,11 +43,8 @@ var authenticate={
         userAdmin.email=req.body.email;
         userAdmin.password="Admin@123";
         userAdmin.orgname=req.body.orgname;
-      
-
-        userAdmin.roles.role="ADMIN";
-        userAdmin.roles.order=2;
-        userAdmin.roles.permissions=["create","write","read","delete"];
+        userAdmin.role="Admin";
+        userAdmin.permissions=["createUser","createProjectManager","updateUser","viewUser","viewProjects","deleteUser"];
 
 
         async.waterfall([function(callback){
@@ -112,9 +109,8 @@ var authenticate={
                 user.password=req.body.password;
                 // user.team=req.body.teamname;
                
-                user.roles.role="MEMBER";
-                user.roles.order=4;
-                user.roles.permissions=["read"];
+                user.role="Member";
+                user.permissions=["viewProject","reportBug","viewBug","updateBug"];
 
   
         bcrypt.genSalt(10, function(err, salt){
@@ -208,9 +204,8 @@ var authenticate={
                 admin.email="superadmin@gmail.com";
                 admin.password="Superadmin@1234";
 
-                admin.isSuperAdmin=true;
-                admin.isMember=false;
-                admin.isAdmin=false;
+                admin.role="SuperAdmin";
+                admin.permissions=["viewOrg","banOrg","deleteOrg"];
                 bcrypt.genSalt(10, function(err, salt){
                     bcrypt.hash(admin.password, salt, function(err, hash){
                       if (err) 

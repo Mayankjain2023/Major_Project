@@ -3,13 +3,8 @@ var URL="http://localhost:5500";
 app.controller("dashboardController",function(user,$state,$http,$rootScope,$scope,$location,$uibModal,SweetAlert){
     
     
-    // $scope.isSuperAdmin=user.isSuperAdmin;
-    // $scope.isProjectManager=user.isProjectManager;
+   
     $scope.ownername=user.username;
-    // $scope.isAdmin=user.isAdmin;
-    // $scope.isMember=user.isMember;
-    // $scope.role=user.isSuperAdmin;
-
     $scope.useremail=user.email;
     $rootScope.organizationName=user.orgname;
     $rootScope.profileName=user.username;
@@ -17,40 +12,27 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
     $rootScope.profileTeam=user.team;
     $rootScope.profileOrg=user.orgname;
 
-    console.log(user.roles);
 
-    var mapRole=user.roles.role;
-    var userOrder=user.roles.order;
-    var userPermissions=user.roles.permissions;
+
+    console.log(user.role);
+
+    $rootScope.role=user.role;
+    var userPermissions=user.permissions;
+    $rootScope.profilePermissions=userPermissions;
+
     console.log(userPermissions);
+    console.log(userPermissions.includes("createProjectManager"));
 
-    if(mapRole=="ADMIN"){
-        $scope.isAdmin=true;
-        $rootScope.role="Admin";
-
-        $scope.order=2;
-        $scope.permissions=userPermissions;
-    }
-    else if(mapRole=="SUPERADMIN"){
-        $scope.isSuperAdmin=true;
-        $scope.order=1;
-        $scope.permissions=userPermissions;
-    }
-    else if(mapRole=="PROJECT MANAGER"){
-        $scope.isProjectManager=true;
-        $rootScope.role="Project Manager";
-
-        $scope.order=3;
-        $scope.permissions=userPermissions;
-
-    }else if(mapRole=="MEMBER"){
-        $scope.isMember=true;
-        $rootScope.role="Member";
-        $rootScope.UserMember=true;
-
-        $scope.order=4;
-        $scope.permissions=userPermissions;
-    }
+    $scope.viewOrg=userPermissions.includes("viewOrg")
+    $scope.viewUsers=userPermissions.includes("viewUser");
+    $scope.createUsers=userPermissions.includes("createUser");
+    $scope.createProjectManagers=userPermissions.includes("createProjectManager");
+    $scope.viewProject=userPermissions.includes("viewProject");
+    $scope.viewProjects=userPermissions.includes("viewProjects");
+    $scope.reportProjectBugs=userPermissions.includes("reportBug");
+    $scope.viewProjectBugs=userPermissions.includes("viewBug");
+    $scope.viewSelfProjects=userPermissions.includes('viewSelfProjects');
+    $scope.createProjects=userPermissions.includes('createProjects');
 
 
     $scope.logout=function(){

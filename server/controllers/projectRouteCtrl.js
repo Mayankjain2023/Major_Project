@@ -21,9 +21,8 @@ var project={
             }else{
                 // doc.isProjectManager=true;
                 console.log(doc);
-                doc.roles.role="PROJECT MANAGER";
-                doc.roles.order=3;
-                doc.roles.permissions=["create","read","write"];
+                doc.role="Project Manager";
+                doc.permissions=["createProjects","viewSelfProjects"];
                 doc.save(function(err){
                     if(err){
                         console.log(err)
@@ -35,12 +34,6 @@ var project={
             }
         })
 
-        
-                
-                
-        
-        
-
         var projectManager=new projectManagers();
         projectManager.name=req.body.pmName;
         projectManager.email=req.body.pmEmail;
@@ -48,7 +41,6 @@ var project={
         projectManager.userId=req.body.userId;
         console.log(projectManager);
 
-        // project.orgname=req.body.orgname;
 
         projectManager.save(function(err){
             if(err){
@@ -59,6 +51,8 @@ var project={
             }
         })
     },
+
+
 
     createProject:function(req,res){
         console.log(req.body);

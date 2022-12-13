@@ -20,6 +20,10 @@ var UserSchema = new mongoose.Schema({
     type:String,
     required:false
   },
+  role:{
+    type:String
+  },
+  permissions:[String]
  
   // isSuperAdmin:{
   //   type:Boolean,
@@ -47,17 +51,17 @@ var UserSchema = new mongoose.Schema({
 //   mapRoles[res.roles[0]]
 // }
     
-  roles:{
+  // roles:{
 
-            role:{        
-              type:String   //superadmin //admin //projectManager //member
-            },
-            order:{  
-              type:Number    //1 //2 //3 //4
-            },
-            permissions:[String]  //['create','read','write','delete']
+  //           role:{        
+  //             type:String   //superadmin //admin //projectManager //member
+  //           },
+  //           order:{  
+  //             type:Number    //1 //2 //3 //4
+  //           },
+  //           permissions:[String]  //['create','read','write','delete']
           
-  }
+  // }
 
     
 
