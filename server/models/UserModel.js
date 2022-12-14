@@ -18,7 +18,10 @@ var UserSchema = new mongoose.Schema({
     required:false},
   orgname:{
     type:String,
-    required:false
+    required:true
+  },
+  orgID:{
+    type:String
   },
   role:{
     type:String

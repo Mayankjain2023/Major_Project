@@ -1,0 +1,57 @@
+
+<div class="panel panel-primary" > 
+    <div class="panel-heading">Profile</div>
+    <div class="panel-body">
+<div class="well" id="wel">
+<div class="row">
+    
+        <h2>{{user.role}} {{user.profileOrg}}
+        </h2>
+   
+</div>
+</div>
+<div class="col-sm-8">
+<h3>
+</h3>
+<h4>Account Details
+</h4>
+
+<h5 id ="fullname">Full Name: {{user.username}}
+</h5>
+<h5 id="email">Email: {{user.email}}&nbsp;
+    <a href="">
+    </a>
+</h5>
+<h5> Number of Bugs solved: </h5>
+<h5> Project Assigned: </h5>
+<button class="btn btn-success"  ng-click="showPermissions()">Modify Permissions</button>
+<br>
+<div ng-show="" class="row" style="margin-top:10px ;">
+    <table class="table">
+        <tbody class="">
+            <tr scope="row" ng-repeat="">
+                <td>{{}} </td>
+                <td><span>&#9989;</span></td>
+            </tr>
+        </tbody>
+    </table>
+ </div>
+    
+<div id="labs" ng-if="UserMember">
+    <h5>Status
+    </h5>
+    <p>Number of Bugs resolved
+    <br>
+     <!-- Description of project assigned -->
+    </p> 
+   
+    </div>
+    </div>
+</div>
+
+
+
+<div class="modal-footer">
+    
+    <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Close</button>
+</div>

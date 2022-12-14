@@ -119,12 +119,14 @@
                   <td>{{users.username}}</td>
                   <td>{{users.email}}</td>
                   <td>
-                    <button class="btn btn-primary">view Profile</button>
+                    <button class="btn btn-primary" ng-click="openMemberModal(lg)">View Profile</button>
                     <button class="btn btn-danger">Remove</button>
                   </td>
                   <td>
-                    <button class="btn btn-success">Make admin</button>
-                    <button class="btn btn-danger" ng-if="">Remove as admin</button>
+                    <!-- <button class="btn btn-success">Make admin</button> -->
+                    <button class="btn btn-success" ng-click="createProjectManager(users.username,
+                    users.email,users.orgID,users._id)" >Make Project Manager</button>
+                    <button class="btn btn-danger" >Remove as Project Manager</button>
                   </td>
                 </tr>
               </tbody> 
@@ -156,11 +158,10 @@
                       <td>{{project.deadline}}</td>
                       <td>{{project.projectManager.username}}</td>
                       <td>
-                          <button class="btn btn-success">View Status</button>
+                          <a ui-sref="projectStatus({projectId:project._id})" class="btn btn-success">View Status</a>
                       </td>
                     </tr>
                   </tbody>
-                  
                 </table>
               </div>
             </div>
@@ -233,14 +234,17 @@
                             <br>
                             <p style="color:red" ng-show="userRegisterForm.password.$invalid && userRegisterForm.password.$touched">Please provide password</p>
       
-            
+                              
+                            <label >Employee ID</label>
+                            <input type="number" class="form-control" name="memberID" id="memberID" placeholder="Employee ID" ng-model="employeeID" required>
+                            <br>
                             
                             <label >Organization</label>
                             <input type="text" class="form-control" name="orgname" id="orgname" placeholder="Organization" ng-model="orgname" required>
                             <br>
                         </div>
                         <!-- <div>{{uname}},{{em}},{{pwd}},{{tmname}}</div> -->
-                        <button type="submit" class=" btn btn-success" ng-click="createUser(uname,em,pwd,orgname)" >Register</button>
+                        <button type="submit" class=" btn btn-success" ng-click="createUser(uname,em,pwd,employeeID,orgname)">Register</button>
                           <!-- ng-disabled="userRegisterForm.email.$invalid || userRegisterForm.password.$invalid"  -->
                         <div class="alert alert-danger" role="alert" ng-show="invalidAlert" >Invalid Credentials!</div>
                       </form>
@@ -275,6 +279,8 @@
                         <p>StartDate : {{userProjectStartDate}} </p>
                         <p>Deadline: {{userProjectDeadline}}</p>
                         <div>Number of bugs: {{bugsLength}}</div>
+                        <h5> Project Team:  </h5>
+                         <div  ng-repeat="assignee in projectAssignees" > {{assignee}} </div>
                     </div>
                 </div>
               </div>
@@ -298,13 +304,16 @@
                 <thead class="thead">
                   <tr>
                     <th class="table-success">#</th>
+                    <th class="table-info">Category</th>
                     <th class="table-info">Title</th>
                     <th class="table-danger">Priority</th>
                     <th class="table-warning">Status</th>
+                   
                   </tr>
                 </thead>
                 <tr ng-repeat="bug in bugs">
                   <td>{{bug.listPosition}}</td>
+                  <td>{{bug.category}}</td>
                   <td>{{bug.title}}</td>
                   <td>{{bug.priority}}</td>
                   <td>{{bug.status}}</td>
@@ -335,6 +344,18 @@
                             </select>
                           </div>
                           <div class="form-group">
+                            <label>Bug Category</label>
+                            <select class="form-control selectpicker" ng-model="bugCategory">
+                              <option value="enhancement">Enhancement</option>
+                              <option value="security">Security</option>
+                              <option value="Feature">Feature(New)</option>
+                              <option value="UI">UI</option>
+                              <option value="data-loss">Data Loss</option>
+                              <option value="crash">Crash</option>
+                              <option value="Performance">Performance</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
                               <label>Bug Title</label>
                               <input type="text" class="form-control" ng-model="bugTitle">
                           </div>
@@ -343,10 +364,10 @@
                             <label>List Posistion</label>
                             <input type="number" class="form-control" ng-model="bugListPosition">
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                           <label>Estimate in Hours</label>
                           <input type="number" class="form-control" ng-model="bugEstimate">
-                        </div>
+                        </div> -->
                           <div class="form-group">
                               <label> Descripition </label>
                               <br><textarea name="description" class="form-control" ng-model="bugDescription"> 
@@ -366,11 +387,12 @@
                           <div class="form-group">
                               <label>Status</label>
                               <select class="form-control selectpicker" ng-model="bugStatus">
-                                  <option value="NOT-STARTED">Not Started</option>
-                                  <option value="WORKING">Working</option>
+                                  <!-- <option value="NOT-STARTED">Not Started</option> -->
+                                  <!-- <option value="WORKING">Working</option> -->
+                                  <option value="OPEN">Open</option>
                                   <option value="TESTING">Testing</option>
-                                  <option value="CLOSED">Closed</option>
-                                  <option value="REOPENED">Reopened</option>
+                                  <!-- <option value="CLOSED">Closed</option> -->
+                                  <!-- <option value="REOPENED">Reopened</option> -->
                               </select>
   
                           </div>
@@ -378,7 +400,8 @@
               
                           <div class="form-group">         
                               <button type="submit" class="btn btn-warning"
-                                ng-click="reportBug(projectName,bugTitle,bugDescription,bugListPosition,bugEstimate,bugPriority,bugStatus)" 
+                                ng-click="reportBug(projectName,bugCategory,bugTitle,bugDescription,bugListPosition
+                                ,bugPriority,bugStatus)" 
                               ><span class="glyphicon glyphicon-plus"></span> Report</button>               
                           </div>
                       </form>
@@ -414,7 +437,7 @@
                         <td>{{project.startDate}}</td>
                         <td>{{project.deadline}}</td>
                         <td>
-                          <button class="btn btn-primary">View</button>
+                          <a class="btn btn-primary" ui-sref="project({projectId:project._id})">View</a>
                           <button class="btn btn-danger">Remove</button>
                         </td>
                       </tr>
@@ -425,107 +448,50 @@
           </div>
         </uib-tab>
       
-        <uib-tab ng-if="createProjects" index="2" heading="Create Project">
+        <uib-tab ng-if="createProjects" index="2" heading="Create Project" ng-click="getOrgMembers()">
           <div class="container-fluid">
-              <uib-tabset active="activePill" type="pills" justified="true">
-                  <uib-tab index="0" heading="Create Individual Project" ng-click="getOrgMembers()">
-                      <div class="panel panel-primary" style="margin-top: 30px; width:100%">
-                          <div class="panel-heading">Creating individual Project</div>
-                          <div class="panel-body">
-                              <div class="row">
-                                  <div class="col-sm-6 col-md-6 col-md-offset-3">
-                                      <form method="post" role="form" autocomplete="off" >
-                                          <div class="row">
-                                              <label> Title </label>
-                                              <input type="text" tabindex="1" class="form-control" ng-model="projectName">
-                                          </div>
-                                        <br>
-                                        <div class="row">
-                                            <label> Descripition </label>
-                                            <textarea name="description" class="form-control" ng-model="projectDescription"> 
-                                            </textarea>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <label>Member Name</label><br>
-                                            <select class="form-control selectpicker" ng-model="projectUserName">
-                                                <option ng-repeat="u in orgUsers" value={{u.username}}>{{u.username}}
-                                                </option>
-                                            </select>
-                                            
-                                        </div>
-                                        <div class="row">
-                                          <label>Member Email</label><br>
-                                          <select class="form-control selectpicker" ng-model="projectUserId">
-                                              <option ng-repeat="u in orgUsers" value={{u._id}}>{{u.email}}
-                                              </option>
-                                          </select>
+              <div class="">
+                  <div class="panel panel-primary" style="margin-top: 30px; width:auto">
+                      <div class="panel panel-heading">Create Project</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-md-offset-3">
+                                    <div class="card">
+                                          <div class="card-body">
+                                            <form method="post" role="form" autocomplete="off" >
+                                              <div class="form-group">
+                                                  <label> Title </label>
+                                                  <input type="text" tabindex="1" class="form-control" ng-model="projectName">
+                                              </div>
+                      
+                                            <div class="form-group">
+                                                <label> Descripition </label>
+                                                <textarea name="description" class="form-control" ng-model="projectDescription"> 
+                                                </textarea>
+                                              </div>
+                                  
+                                            <div class="form-group">
+                                              <label>Assignees</label>
+                                            <select class="form-control" ng-model="projectUsersEmail" multiple>
+                                                <option ng-repeat="u in orgUsers" value="{{u.email}}">{{u.email}}</option>
                                           
-                                      </div>
-                                        <div class="row">
-                                            <label>Start Date</label> 
-                                            <input type="date" class="form-control" ng-model="startDate"> 
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <label>End Date</label> 
-                                            <input type="date" class="form-control" ng-model="deadline"> 
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <button class="btn btn-success" ng-click="createProject(projectName,projectDescription,projectUserName,projectUserId,startDate,deadline)">Create</button>
-                                        </div>
-                                    </form>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      
-                  </uib-tab>
-              
-                  <uib-tab index="1" heading="Create Group project" ng-click="getOrgMembers()">
-                      <div class="">
-                          <div class="panel panel-primary" style="margin-top: 30px; width:auto">
-                            <div class="panel panel-heading">Create Project</div>
-                              <div class="panel-body">
-                                  <div class="row">
-                                      <div class="col-sm-6 col-md-6 col-md-offset-3">
-                                          <form method="post" role="form" autocomplete="off" >
-                                                <div class="row">
-                                                    <label> Title </label>
-                                                    <input type="text" tabindex="1" class="form-control" ng-model="projectName">
-                                                </div>
-                                              <br>
-                                              <div class="row">
-                                                  <label> Descripition </label>
-                                                  <textarea name="description" class="form-control" ng-model="projectDescription"> 
-                                                  </textarea>
-                                              </div>
-                                              <br>
-                                              <div class="row">
-                                                  <label>Assignees</label><br>
-                                                  <select class="form-control selectpicker" ng-model="projectTeam" multiple>
-                                                      <option ng-repeat="u in orgUsers" value={{u.username}}>{{u.username}}
-                                                      </option>
-                                                  </select>
-                                                  
-                                              </div>
-                                              <div class="row">
-                                                  <label>Start Date</label> 
-                                                  <input type="date" class="form-control" ng-model="startDate"> 
-                                              </div>
-                                              <br>
-                                              <div class="row">
-                                                  <label>End Date</label> 
-                                                  <input type="date" class="form-control" ng-model="deadline"> 
-                                              </div>
-                                              <br>
-                                             
-                      
-                                              <div class="row">
-                                                  <button class="btn btn-success" ng-click="createProject(projectName,projectDescription,projectTeam,startDate,deadline)">Create</button>
-                                              </div>
-                                          </form>
+                                            </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Start Date</label> 
+                                                <input type="date" class="form-control" ng-model="startDate"> 
+                                            </div>
+                                            <div class="form-group">
+                                                <label>End Date</label> 
+                                                <input type="date" class="form-control" ng-model="deadline"> 
+                                            </div>
+                                            <div class="form-group">
+                                                <button class="btn btn-success" ng-click="createProject(projectName,projectDescription,projectUsersEmail,
+                                                startDate,deadline)">Create</button>
+                                            </div>
+                                        </form>
+                                          </div>
+                                        </div> 
                                       </div>
                                   </div>
                               </div>
@@ -539,16 +505,12 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
+<script>
+  mobiscroll.select('#multiple-select', {
+    inputElement: document.getElementById('my-input'),
+    touchUi: false
+});
+</script>
 
 
 

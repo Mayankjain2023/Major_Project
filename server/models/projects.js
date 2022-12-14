@@ -24,6 +24,7 @@ var projectSchema=new Schema({
     },
 
     projectManager:{
+
         username: {
             type: String,required: false
           },
@@ -33,18 +34,25 @@ var projectSchema=new Schema({
           userId:{
             type: mongoose.Schema.Types.ObjectId
           }
+
         //pm of that project
     },
     bugs:[{
             
             title:String,
+            category:String,
             status:String,
             priority:String,
             listPosition:Number,
             description:String,
             estimate:Number,
             timeSpent:Number,
-            timeRemainingl:Number,
+            timeRemaining:Number,
+            reporterId:{
+              username:String,
+              email:String,
+              type:mongoose.Schema.Types.ObjectId
+            },
             createdAt:{
               type:String,
               default:now.toISOString()
@@ -56,20 +64,7 @@ var projectSchema=new Schema({
 
         //
     }],
-    users:
-        {
-            username: {
-                type: String,required: false
-              },
-            // email:{
-            //   type:String
-            // }  
-              userId:{
-                type:mongoose.Schema.Types.ObjectId
-              }
-
-        
-    }
+    users:[ String ]
 })
 
 var projects=mongoose.model("projects",projectSchema);

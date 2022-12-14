@@ -23,6 +23,8 @@ var authenticate={
 
     createOrg:function(req,res){
         console.log(req.body);
+        var orgID=req.body.orgID;
+        console.log(orgID);
 
         var org=new Org();
         org.orgname=req.body.orgname;
@@ -30,19 +32,19 @@ var authenticate={
         var user={
             username:req.body.username,
             email:req.body.email,
+            orgID:orgID,
             role:"Admin"
         };
 
         org.users.push(user);
         console.log(org);
 
-
-
         var userAdmin=new User();
         userAdmin.username=req.body.username;
         userAdmin.email=req.body.email;
         userAdmin.password="Admin@123";
         userAdmin.orgname=req.body.orgname;
+        userAdmin.orgID=orgID;
         userAdmin.role="Admin";
         userAdmin.permissions=["createUser","createProjectManager","updateUser","viewUser","viewProjects","deleteUser"];
 
@@ -89,7 +91,8 @@ var authenticate={
         var user={
             username:req.body.username,
             email:req.body.email,
-            role:"Member"
+            role:"Member",
+            orgID:req.body.orgID
         }
         Org.updateOne(
             {
@@ -107,6 +110,7 @@ var authenticate={
                 user.email=req.body.email;
                 user.orgname=req.body.orgname;
                 user.password=req.body.password;
+                user.orgID=req.body.orgID;
                 // user.team=req.body.teamname;
                
                 user.role="Member";

@@ -12,10 +12,10 @@ var project={
     //create project manager
     createProjectManager:function(req,res){
         console.log(req.body);
-
+        console.log(req.body.orgID);
         console.log(req.body.userId);
 
-        User.findOne({username:req.body.pmName},function(err,doc){
+        User.findOne({orgID:req.body.orgID},function(err,doc){
             if(err){
                 console.log(err)
             }else{
@@ -38,6 +38,7 @@ var project={
         projectManager.name=req.body.pmName;
         projectManager.email=req.body.pmEmail;
         projectManager.orgname=req.body.orgname;
+        projectManager.orgID=req.body.orgID;
         projectManager.userId=req.body.userId;
         console.log(projectManager);
 
@@ -56,17 +57,12 @@ var project={
 
     createProject:function(req,res){
         console.log(req.body);
-
-
-        
-
         var project=new projects();
         project.name=req.body.projectName;
         project.description=req.body.projectDescription;
         project.startDate=req.body.projectStartDate;
         project.deadline=req.body.deadline;
         project.orgname=req.body.projectOrgname;
-
         project.projectManager=req.body.projectManager;
         project.bugs=req.body.bugs;
         project.users=req.body.users;
@@ -106,6 +102,50 @@ var project={
         
     },    
 
+        //getProjectBugs
+
+        getProjectBugs:function(req,res){
+
+            console.log(req.params.id);
+            var id=req.params.id;
+
+            projects.findById({_id:id},function(err,doc){
+                if(err){
+                    console.log(err);
+                    return res.status(401).json({status:'error',message:'could not find project'})
+                }
+                else{
+                    console.log(doc);
+                    return res.status(200).json({status:'success',message:"success",docs:doc})
+                }
+            })
+
+        },
+
+        //getProjectStatus
+
+        //getProjectBugs
+
+        getProjectStatus:function(req,res){
+
+            console.log(req.params.id);
+            var id=req.params.id;
+
+            projects.findById({_id:id},function(err,doc){
+                if(err){
+                    console.log(err);
+                    return res.status(401).json({status:'error',message:'could not find project'})
+                }
+                else{
+                    console.log(doc);
+                    return res.status(200).json({status:'success',message:"success",docs:doc})
+                }
+            })
+
+        },
+
+
+
         //reporting the bug
     reportBug:function(req,res){
         console.log(req.body);
@@ -116,11 +156,12 @@ var project={
         bug.title=req.body.title;
         bug.orgname=req.body.orgname;
         bug.projectId=req.body.projectID;
+        bug.category=req.body.category;
         bug.status=req.body.status;
         bug.priority=req.body.priority;
         bug.listPosition=req.body.listPosition;
         bug.description=req.body.description;
-        bug.estimate=req.body.estimate;
+        // bug.estimate=req.body.estimate;
         // bug.timeSpent=req.body.timeSpent;
         // bug.timeRemaining=req.body.timeRemaining;
         bug.reporterId=req.body.reporterId;
@@ -128,7 +169,7 @@ var project={
         console.log(bug);
         bug.save(function(err){
             if(err)
-            {
+            {   console.log(err);
                 return res.status(401).json({status:'error',message:"failed to report the bug"});
             }else{
                 
@@ -136,6 +177,7 @@ var project={
                     if(err){
                         console.log(err)
                     }else{
+                        console.log(bug);
                         doc.bugs.push(bug);
                         doc.save(function(err){
                             if(err){

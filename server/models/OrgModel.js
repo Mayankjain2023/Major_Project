@@ -11,9 +11,9 @@ var OrgSchema = new mongoose.Schema({
       email: {
         type: String,required: true
       },
-      password:{
-        type:String
-        // ,require:false
+      orgID:{
+        type:String,
+        required:true
       },
       role:{
         type:String,default:"Member",required:true

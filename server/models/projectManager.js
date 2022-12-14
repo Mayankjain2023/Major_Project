@@ -18,6 +18,10 @@ var projectManagerSchema=new Schema({
         type:String
 
     },
+    orgID:{
+        type:String
+    }
+    ,
     userId:{
         type:mongoose.Schema.Types.ObjectId
     },

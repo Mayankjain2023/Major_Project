@@ -77,3 +77,60 @@
         <span>You are logged in successfully</span>
       </div>
 </body>   -->
+
+
+
+     <uib-tab index="0" heading="Create Individual Project" ng-click="getOrgMembers()">
+                      <div class="panel panel-primary" style="margin-top: 30px; width:100%">
+                          <div class="panel-heading">Creating individual Project</div>
+                          <div class="panel-body">
+                              <div class="row">
+                                  <div class="col-sm-6 col-md-6 col-md-offset-3">
+                                      <form method="post" role="form" autocomplete="off" >
+                                          <div class="row">
+                                              <label> Title </label>
+                                              <input type="text" tabindex="1" class="form-control" ng-model="projectName">
+                                          </div>
+                                        <br>
+                                        <div class="row">
+                                            <label> Descripition </label>
+                                            <textarea name="description" class="form-control" ng-model="projectDescription"> 
+                                            </textarea>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <label>Member Name</label><br>
+                                            <select class="form-control selectpicker" ng-model="projectUserName">
+                                                <option ng-repeat="u in orgUsers" value={{u.username}}>{{u.username}}
+                                                </option>
+                                            </select>
+                                            
+                                        </div>
+                                        <div class="row">
+                                          <label>Member Email</label><br>
+                                          <select class="form-control selectpicker" ng-model="projectUserId">
+                                              <option ng-repeat="u in orgUsers" value={{u._id}}>{{u.email}}
+                                              </option>
+                                          </select>
+                                          
+                                      </div>
+                                        <div class="row">
+                                            <label>Start Date</label> 
+                                            <input type="date" class="form-control" ng-model="startDate"> 
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <label>End Date</label> 
+                                            <input type="date" class="form-control" ng-model="deadline"> 
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <button class="btn btn-success" ng-click="createProject(projectName,projectDescription,projectUserName,projectUserId,startDate,deadline)">Create</button>
+                                        </div>
+                                    </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      
+                  </uib-tab>

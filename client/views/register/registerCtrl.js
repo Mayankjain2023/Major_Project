@@ -6,6 +6,7 @@ app.controller("registerCtrl",function($state,$http,$scope,SweetAlert){
         var username= adminName;
         var email= adminEmail;
         var password= adminPassword;
+        var orgID=orgName+"1";
 
         // $scope.passAlert=false;
         console.log(username+" "+email+" "+ orgname);
@@ -17,6 +18,7 @@ app.controller("registerCtrl",function($state,$http,$scope,SweetAlert){
                 "orgname": orgname,
                 "username":username,
                 "email":email,
+                "orgID":orgID,
                 "password":password
             }
         }).then(function mysuccess(response){

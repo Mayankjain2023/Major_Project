@@ -38,6 +38,24 @@ app.config(function($stateProvider,$urlRouterProvider){
                     templateUrl:"views/home/home.html",
                     url:"/home"
                 })
+                .state("project",{
+                    url:'/project/:projectId',
+                    templateUrl:"views/projectManager/projectBugs.html",
+                    controller:"projectManagerCtrl"
+                })
+                .state("projectStatus",{
+                    url:'/projectStatus/:projectId',
+                    templateUrl:"views/admin/projectStatus.html",
+                    controller:"projectStatusCtrl"
+                })
+                .state("memberProfile",{
+                    url:'/memberProfile/:memberID',
+                    templateUrl:"views/admin/memberProfile.html",
+                    controller:"memberProfileCtrl"
+                })
+
+
+
                 // .state("profile",{
                 //     controller:"modalCtrl",
                 //     templateUrl:"views/dashboard/modal.html",

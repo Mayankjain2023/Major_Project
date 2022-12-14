@@ -1,0 +1,43 @@
+<br>
+<div>
+    <a ui-sref="dashboard" type="button" class="btn btn-success">Go Back</a>
+</div>
+<br>
+<div>{{project}}</div>
+
+<div>
+    <uib-tabset active="activePill" justified="true" vertical="true" type="pills" ng-init="getProjectStatus()">
+        <uib-tab index="0" heading="Bugs in {{projectName}}">
+                <div class="panel panel-primary	" style="margin-top: 30px;">
+                  <div class="panel-heading">Project Manager: {{projectManagerName}}</div>
+                    <div class="panel-body">
+                      
+                      <div>
+                        <table class="table table-bordered">
+                          <thead class="thead">
+                            <tr>
+                              <th class="table-success">#</th>
+                              <th class="table-info">Category</th>
+                              <th class="table-secondary">Title</th>
+                              <th class="table-danger">Priority</th>
+                              <th class="table-warning">Status</th>
+                              
+                             
+                            </tr>
+                          </thead>
+                          <tr ng-repeat="bug in bugs">
+                            <td>{{bug.listPosition}}</td>
+                            <td>{{bug.category}}</td>
+                            <td>{{bug.title}}</td>
+                            <td>{{bug.priority}}</td>
+                            <td>{{bug.status}}</td>
+                            
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+              </uib-tab>
+        </uib-tab>
+    </uib-tabset>
+</div>

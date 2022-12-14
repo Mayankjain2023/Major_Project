@@ -45,13 +45,16 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
     }
 
     //creating Users
-    $scope.createUser=function(uname,em,pwd,orgname){
+    $scope.createUser=function(uname,em,pwd,employeeID,orgname){
         console.log(uname);
 
         var name=uname;
         var email=em;
         var password=pwd;
         var orgname=user.orgname;
+
+        var orgID=orgname+employeeID;
+
        
         $scope.passAlert=false;
         
@@ -59,7 +62,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
         $http({
             method:"POST",
             url:URL+"/user/createUser",
-            data:{'username':name,'email':email,'password':password,'orgname':orgname}
+            data:{'username':name,'email':email,'password':password,'orgname':orgname,'orgID':orgID}
         })
         .then(function mysuccess(response){
 
@@ -75,21 +78,24 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
     }
             //creating project Manager
 
-    $scope.createProjectManager=function(pmName,pmEmail,userId){
-        console.log(userId);
+    $scope.createProjectManager=function(pmName,pmEmail,orgID,pId){
+        // $scope.makeProjectManager=true;
+        console.log(pId);
+        console.log(pmName,pmEmail,orgID,pId);
 
         var pmName=pmName;
         var pmEmail=pmEmail;
         var orgname=user.orgname;
-        var userId=userId;
+        var orgID=orgID;
+        var userId=pId;
 
         console.log(pmName+"" +pmEmail+""+orgname+""+userId);
         $http({
             method:"POST",
             url:URL+"/createProjectManager",
-            data:{'pmName':pmName,'pmEmail':pmEmail,'orgname':orgname,'userId':userId}
+            data:{'pmName':pmName,'pmEmail':pmEmail,'orgname':orgname,'orgID':orgID,'userId':userId}
         }).then( function mysuccess(response){
-            SweetAlert.swal('Project Manager Created Successfully')
+            SweetAlert.swal("Member succesfully made as project Manager");
             $state.reload();
             console.log(response);
         },function myError(response){
@@ -100,7 +106,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
 
     //creating Project
 
-    $scope.createProject=function(projectName,projectDescription,projectUserName,projectUserId,startDate,deadline){
+    $scope.createProject=function(projectName,projectDescription,projectUsersEmail,startDate,deadline){
 
         var projectName=projectName;
         var projectDescription=projectDescription;
@@ -108,6 +114,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
         var projectOrgname=user.orgname;
         var projectStartDate=startDate;
         var projectDeadline=deadline;
+
         var projectManager={
 
             username:user.username,
@@ -115,8 +122,12 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
             userId:user._id
 
         }
-        console.log(projectUserName);
-        console.log(projectUserId);
+        // console.log(projectUsersEmail);
+        var users=projectUsersEmail;
+        console.log(users);
+
+        // console.log(projectUserName);
+        // console.log(projectUserId);
 
         //  var projectTeam=[]
 
@@ -125,11 +136,8 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
             // projectUserIdprojectUserId
      
         //  console.log(projectTeam);
-        var projectUserName=projectUserName;
-        var projectUserId=projectUserId;
-    
-        
-        
+        // var projectUserName=projectUserName;
+        // var projectUserId=projectUserId;
 
         $http({
             method:'POST',
@@ -144,14 +152,8 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
                     "username":projectManager.username,
                     "email":projectManager.email,
                     "userId":projectManager.userId
-                },
-                
-                "users":{
-                    "username":projectUserName,
-                    "userId":projectUserId
-                }
-                        
-                 
+                },  
+                "users":users  
 
             }
         }).then(function mysuccess(response){
@@ -197,15 +199,28 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
                 //projects belonging to particular project Manager
                 $scope.pmProjects=pmProjects;
                 console.log(OrgProjects);
+
                 console.log(pmProjects);
+                console.log(user.username);
+                
 
                 var userProject=[];
+            
+                
                 for(var i=0;i<OrgProjects.length;i++){
-                    if(OrgProjects[i].users.username==user.username){
-                        userProject.push(OrgProjects[i]);
+                        console.log(OrgProjects[i].users);
+                        if(OrgProjects[i].users.includes(user.email)){
+                        //     console.log(OrgProjects[i].users.useremail);
+                            userProject.push(OrgProjects[i]);
+                            
+                        // }
+
                     }
                 }
                 
+                $scope.projectAssignees=userProject[0].users;
+                console.log(userProject[0].users);
+
                 console.log(userProject);
 
                 $scope.userProject=userProject;
@@ -225,19 +240,23 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
         })
 }
 
+  
+
+
     //creating bugs
 
-    $scope.reportBug=function(projectName,bugTitle,bugDescription,bugListPosition
-        ,bugEstimate,bugPriority,bugStatus){
+    $scope.reportBug=function(projectName,bugCategory,bugTitle,bugDescription,bugListPosition
+        ,bugPriority,bugStatus){
 
         var orgname=user.orgname;
         var projectID=projectName;
+        var category=bugCategory;
         var title=bugTitle;
         var status=bugStatus;
         var priority=bugPriority;
         var listPosition=bugListPosition;
         var description=bugDescription;
-        var estimate=bugEstimate;
+        // var estimate=bugEstimate;
         // var timeSpent=bugTimeSpent;
         // var timeRemaining=bugTimeRemaining;
         var reporterId={
@@ -252,12 +271,13 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
             data:{
                 "orgname":orgname,
                 "projectID":projectID,
+                "category":category,
                 "title":title,
                 "status":status,
                 "priority":priority,
                 "listPosition":listPosition,
                 "description":description,
-                "estimate":estimate,
+                // "estimate":estimate,
                 // "timeSpent":timeSpent,
                 // "timeRemaining":timeRemaining,
                 "reporterId":{
@@ -389,23 +409,18 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
 
   
 
-      $scope.openLargeModal = function (size) {
+      $scope.openMemberModal = function (users,size) {
 
         var modalInstance = $uibModal.open({
           ariaLabelledBy:'modal-title',
           ariaDescribedBy:'modal-body',
-          templateUrl: 'views/superAdmin/reportmodal.html',
+          templateUrl: 'views/member/memberProfile.html',
           controller: 'modalCtrl',
           controllerAs:'$ctrl',
           size:size,
        
         });
-    
-        modalInstance.result.then(function (selectedItem) {
-       
-        }, function () {
-       
-        });
+        
       };
 
         $scope.openAdminModal = function (size) {
