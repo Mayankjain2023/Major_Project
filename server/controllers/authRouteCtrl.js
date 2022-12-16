@@ -3,6 +3,37 @@ var Org=require("../models/OrgModel");
 var async=require("async");
 var bcrypt=require("bcryptjs");
 var jwt=require('jsonwebtoken');
+require("dotenv").config();
+var sgMail= require("@sendgrid/mail");
+var AWS = require("aws-sdk");
+var uuid = require('uuid');
+AWS.config.update({region: 'ap-south-1'});
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// console.log(process.env.SENDGRID_API_KEY);
+
+AWS.config.getCredentials(function(err) {
+    if (err) console.log(err.stack);
+    // credentials not loaded
+    else {
+      console.log("Access key:", AWS.config.credentials.accessKeyId);
+    }
+  });
+
+// const msg = {
+//     to: 'mayank1903jain@gmail.com', // Change to your recipient
+//     from: 'bugtrackerrr@gmail.com', // Change to your verified sender
+//     subject: 'Sending with SendGrid is Fun',
+//     text: 'and easy to do anywhere, even with Node.js',
+//     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+//   }
+//   sgMail
+//     .send(msg)
+//     .then(() => {
+//       console.log('Email sent')
+//     })
+//     .catch((error) => {
+//       console.error(error)
+//     })
 
 var authenticate={
 
@@ -134,6 +165,38 @@ var authenticate={
                     var payload={email:user.email,id:user.id};
                     var secret="SECRET";
                     var token=jwt.sign(payload,secret,{expiresIn:'1d'});
+
+                    var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
+
+                          var params = {
+    
+                            DelaySeconds: 10,
+                            MessageAttributes: {
+                              "Subject": {
+                                DataType: "String",
+                                StringValue: "Welcome to Bugtracker"
+                              },
+                              "Username": {
+                                DataType: "String",
+                                StringValue: req.body.username
+                              },
+                              "Usermail": {
+                                DataType: "String",
+                                StringValue: req.body.email
+                              }
+                            },
+                            MessageBody: req.body.email,
+                          
+                            QueueUrl: "https://sqs.ap-south-1.amazonaws.com/233050499454/bug_tracker_mails_record"
+                          };
+                          sqs.sendMessage(params, function(err, data) {
+                            if (err) {
+                              console.log("Error", err);
+                            } else {
+                              console.log("Successfully delivered msg to queue", data.MessageId);
+                            }
+                          });
+
                     res.status(200).json({status:'success',message:'User added successfully',token:"Bearer "+token});
                 }
                 });

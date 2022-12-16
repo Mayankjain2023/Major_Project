@@ -48,9 +48,14 @@ app.config(function($stateProvider,$urlRouterProvider){
                     templateUrl:"views/admin/projectStatus.html",
                     controller:"projectStatusCtrl"
                 })
-                .state("memberProfile",{
-                    url:'/memberProfile/:memberID',
-                    templateUrl:"views/admin/memberProfile.html",
+                // .state("memberProfile",{
+                //     url:'/memberProfile/:memberID',
+                //     templateUrl:"views/admin/memberProfile.html",
+                //     controller:"memberProfileCtrl"
+                // })
+                .state("updateProfile",{
+                    url:'/updateProfile/:profileId',
+                    templateUrl:"views/member/memberProfile.html",
                     controller:"memberProfileCtrl"
                 })
 
@@ -79,4 +84,29 @@ app.config(function($stateProvider,$urlRouterProvider){
                 
             
 });
+
+
+app.directive("fileread", [
+    function() {
+      return {
+        scope: {
+          fileread: "="
+        },
+        link: function(scope, element, attributes) {
+          element.bind("change", function(changeEvent) {
+            var reader = new FileReader();
+            reader.onload = function(loadEvent) {
+              scope.$apply(function() {
+                scope.fileread = loadEvent.target.result;
+              });
+            }
+            reader.readAsDataURL(changeEvent.target.files[0]);
+          });
+        }
+      }
+    }
+  ]);
+
+
+
 

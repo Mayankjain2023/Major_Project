@@ -15,7 +15,8 @@ var UserSchema = new mongoose.Schema({
    },
   team:{
     type:String, 
-    required:false},
+    required:false
+  },
   orgname:{
     type:String,
     required:true

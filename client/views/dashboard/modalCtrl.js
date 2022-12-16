@@ -4,7 +4,7 @@ app.controller('modalCtrl',function($scope,$uibModalInstance){
     
     var $ctrl=this;
     
-     $scope.showUserPermissions=false;
+    $scope.showUserPermissions=false;
     $scope.showPermissions=function(){
         $scope.showUserPermissions=!$scope.showUserPermissions;
     }

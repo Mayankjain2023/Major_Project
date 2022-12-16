@@ -30,3 +30,103 @@
 
         
     // },
+
+
+
+
+    ----------------------------------------------AWS-------------------------------------------------------
+    
+AWS.config.getCredentials(function(err) {
+  if (err) console.log(err.stack);
+  // credentials not loaded
+  else {
+    console.log("Access key:", AWS.config.credentials.accessKeyId);
+  }
+});
+
+//listing all the queues
+var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
+
+//sending a msg to the queue
+var params = {
+    
+   DelaySeconds: 10,
+   MessageAttributes: {
+     "Subject": {
+       DataType: "String",
+       StringValue: "Welcome to bugtracker"
+     },
+     "CreatedBy": {
+       DataType: "String",
+       StringValue: "UserName"
+     },
+     "UserID": {
+       DataType: "Number",
+       StringValue: "6"
+     }
+   },
+   MessageBody: "Welcome to BugTracker,your account created succesfully",
+   // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
+   // MessageGroupId: "Group1",  // Required for FIFO queues
+   QueueUrl: "https://sqs.ap-south-1.amazonaws.com/233050499454/bug_tracker_mails_record"
+ };
+ 
+//  sqs.sendMessage(params, function(err, data) {
+//    if (err) {
+//      console.log("Error", err);
+//    } else {
+//      console.log("Successfully delivered msg to queue", data.MessageId);
+//    }
+//  });
+
+//sending a msg to the Q
+
+
+
+
+//getting url of a particular queue
+// var params = {
+//     QueueName: 'SQS_QUEUE_DEMO123'
+//   };
+  
+//   sqs.getQueueUrl(params, function(err, data) {
+//     if (err) {
+//       console.log("Error", err);
+//     } else {
+//       console.log("Success", data.QueueUrl);
+//     }
+//   });
+//getting url of a particular queue
+
+//for creating a new queue
+
+// var params = {
+//     QueueName: 'SQS_QUEUE_DEMO123',
+//     Attributes: {
+//       'DelaySeconds': '60',
+//       'MessageRetentionPeriod': '86400'
+//     }
+//   };
+
+// sqs.createQueue(params, function(err, data) {
+//     if (err) {
+//       console.log("Error", err);
+//     } else {
+//       console.log("Success", data.QueueUrl);
+//     }
+//   });
+
+
+
+//listing all queues
+// var params = {};
+
+// sqs.listQueues(params, function(err, data) {
+//   if (err) {
+//     console.log("Error", err);
+//   } else {
+//     console.log("Success", data.QueueUrls);
+//   }
+// });
+
+

@@ -56,6 +56,7 @@ var project={
 
 
     createProject:function(req,res){
+        
         console.log(req.body);
         var project=new projects();
         project.name=req.body.projectName;
@@ -80,7 +81,6 @@ var project={
                 return res.status(200).json({status:'success',message:'Project created successfully'});
             }
         })
-
 
     },
 

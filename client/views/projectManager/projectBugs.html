@@ -6,9 +6,15 @@
 <div>{{project}}</div>
 <div>
     <uib-tabset active="activePill" justified="true" vertical="true" type="pills" ng-init="getProjectBugs()">
-        <uib-tab index="0" heading="Bugs in {{projectName}}">
+        <uib-tab index="0" heading="Bugs Status {{projectName}}">
                 <div class="panel panel-primary	" style="margin-top: 30px;">
-                  <div class="panel-heading">Bugs Status</div>
+                  <div class="panel-heading">
+                    <form class="form-inline">
+                        <input class="form-control mr-lg-2" type="search" placeholder="Search bugs" ng-model="app.bugsearch" ng-model-options="{ debounce: 2000 }" aria-label="Search">
+                        <button class="btn btn-outline-light my-4 my-sm-2" type="submit">Search</button>
+                      </form>
+                  </div>
+                 
                     <div class="panel-body">
                       
                       <div>
@@ -21,27 +27,26 @@
                               <th class="table-danger">Priority</th>
                               <th class="table-warning">Status</th>
                               <th class="table-secondary">AssignTo</th>
+                              <th class="">Auto</th>
                              
                             </tr>
                           </thead>
-                          <tr ng-repeat="bug in bugs">
+                          <tr ng-repeat="bug in bugs | filter:app.bugsearch track by bug.title">
                             <td>{{bug.listPosition}}</td>
                             <td>{{bug.category}}</td>
                             <td>{{bug.title}}</td>
                             <td>{{bug.priority}}</td>
                             <td>{{bug.status}}</td>
-                            <td><button class="btn btn-success">AutoAssign</button>
-
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Assign To
-                                    </button>
-                                    <div class="dropdown-menu" ng-repeat="u in users">
-                                      <a class="dropdown-item" href="">{{u.username}}</a>
+                            <td>
                                 
-                                    </div>
-                                  </div> 
-                                  </td>
+                                <form class="form-inline">
+                                    <input type="text" name="myName" class="form-control" ng-model="assignee" ng-model-options="{ debounce: 2000 }" />
+                                    
+                                    <button class="btn btn-success" type="submit" style="margin-left:5px ;">Assign</button>
+                                  </form>
+                                  
+                            </td>
+                            <td><button class="btn btn-warning">AutoAssign</button></td>
                           </tr>
                         </table>
                       </div>

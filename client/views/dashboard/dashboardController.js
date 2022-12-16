@@ -7,10 +7,12 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
     $scope.ownername=user.username;
     $scope.useremail=user.email;
     $rootScope.organizationName=user.orgname;
+    
     $rootScope.profileName=user.username;
     $rootScope.profileEmail=user.email;
     $rootScope.profileTeam=user.team;
     $rootScope.profileOrg=user.orgname;
+    $rootScope.profileID=user._id;
 
 
 
@@ -219,7 +221,7 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
                 }
                 
                 $scope.projectAssignees=userProject[0].users;
-                console.log(userProject[0].users);
+                // console.log(userProject[0].users);
 
                 console.log(userProject);
 
@@ -324,6 +326,11 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
             })
     }
 
+
+    // var app=this;
+    // app.searchTerm="";
+    // app.debounceTerm="";
+    
     //getOrgMembers
 
     $scope.getOrgMembers=function(){
@@ -358,6 +365,13 @@ app.controller("dashboardController",function(user,$state,$http,$rootScope,$scop
                 console.log(response);
         })
 }
+
+    // $scope.$watch("app.searchTerm", _.debounce(function(n,o){
+    //     app.debounceTerm=n;
+    //     $scope.$apply();
+    // },500));
+
+
 
     //collapseTab
     $scope.isCollapsed= true;

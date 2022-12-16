@@ -37,7 +37,7 @@
   </div>
   <div class="collapse navbar-collapse" >
           <form class="form-inline">
-            <input class="form-control mr-lg-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control mr-lg-2" type="search" placeholder="search" ng-model="app.searchTerm" ng-model-options="{ debounce: 2000 }" aria-label="Search">
             <button class="btn btn-outline-light my-4 my-sm-2" type="submit">Search</button>
           </form>
   </div>
@@ -105,6 +105,8 @@
         <div   class="panel panel-primary	" style="margin-top: 30px;">
           <div class="panel-heading">Members</div>
           <div class="panel-body">
+            <!-- <input type="search" placeholder="search member" ng-model="app.searchTerm" ng-model-options="{ debounce: 2000 }"> -->
+            <br>
             <table  class="table table-bordered">
               <thead class="thead-light">
                 <tr>
@@ -115,7 +117,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr scope="row" ng-repeat="users in orgUsers">
+                <tr scope="row" ng-repeat="users in orgUsers | filter:app.searchTerm track by users._id">
                   <td>{{users.username}}</td>
                   <td>{{users.email}}</td>
                   <td>
@@ -126,7 +128,7 @@
                     <!-- <button class="btn btn-success">Make admin</button> -->
                     <button class="btn btn-success" ng-click="createProjectManager(users.username,
                     users.email,users.orgID,users._id)" >Make Project Manager</button>
-                    <button class="btn btn-danger" >Remove as Project Manager</button>
+                    <!-- <button class="btn btn-danger" >Remove as Project Manager</button> -->
                   </td>
                 </tr>
               </tbody> 
@@ -265,6 +267,8 @@
 <div class="container-fluid" ng-init="showProjects()">
   <uib-tabset active="activePill" type="pills" justified="true">
     <uib-tab ng-if="viewProject" index="0" heading="Project">
+      <br>
+      <a ui-sref="updateProfile({profileId:useremail})" ng-model="useremail" class="btn btn-success">Update Profile</a>
       <div style="margin-top:20px ;" >
         <div class="row">
             <div class="col">

@@ -14,3 +14,8 @@ var config={
 
 config.mongo.url='mongodb://'+config.mongo.hostname+':'+config.mongo.port+'/'+config.mongo.db;
 module.exports=config;
+
+//aws access credentials
+
+// AKIATMQXENF7HLZQOPBB
+// vBkmD0N3IgxWRY+gMoYjXFezR2KfbIAjU67Or12M

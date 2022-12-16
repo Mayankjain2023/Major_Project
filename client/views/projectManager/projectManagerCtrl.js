@@ -3,6 +3,11 @@ var URL="http://localhost:5500";
 app.controller("projectManagerCtrl",function($state,$http,$rootScope,$scope,$location,$stateParams){
 
       //openProjectInfo
+      $scope.assignee=[];
+      
+        $scope.changeFunction = function() {
+            console.log('change called');
+        }
 
       $scope.getProjectBugs=function(){
 
